@@ -40,6 +40,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Bison Include="tmp.y" />
+    <None Include="tmp.y" />
   </ItemGroup>
 </Project>

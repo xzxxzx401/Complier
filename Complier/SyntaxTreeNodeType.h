@@ -432,6 +432,6 @@ protected:
 	SyntaxTreeNode * forth;
 	SyntaxTreeNode * fifth;
 };
-
-SyntaxTreeNode* MakeNode(int type, ...);
-SyntaxTreeFinalNode* MakeLeaf(int val1, ...);
+#include <initializer_list>
+SyntaxTreeNode* MakeNode(int type, std::initializer_list<SyntaxTreeNode> args);
+SyntaxTreeFinalNode* MakeLeaf(int type, std::initializer_list<int> args);
