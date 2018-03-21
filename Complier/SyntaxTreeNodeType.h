@@ -444,19 +444,19 @@ protected:
 SyntaxTreeNode* MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args);
 
 //type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-SyntaxTreeNodeFinal* MakeLeaf(std::string name);
+SyntaxTreeNodeFinal* MakeLeaf(std::string name,int linenum);
 
 //type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-SyntaxTreeNodeFinal* MakeLeaf(int val);
+SyntaxTreeNodeFinal* MakeLeaf(int val, int linenum);
 
 //type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-SyntaxTreeNodeFinal* MakeLeaf(double val);
+SyntaxTreeNodeFinal* MakeLeaf(double val, int linenum);
 
 //type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-SyntaxTreeNodeFinal* MakeLeaf(bool val);
+SyntaxTreeNodeFinal* MakeLeaf(bool val, int linenum);
 
 //type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-SyntaxTreeNodeFinal* MakeLeaf(char val);
+SyntaxTreeNodeFinal* MakeLeaf(char val, int linenum);
 
 //opnum表示运算符标号
 //			0 1  2 3  4 5

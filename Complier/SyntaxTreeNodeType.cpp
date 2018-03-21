@@ -168,41 +168,41 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 
 ///新建叶节点，会分配内存
 ///type为0（标识符叶节点）
-SyntaxTreeNodeFinal* MakeLeaf(std::string name)
+SyntaxTreeNodeFinal* MakeLeaf(std::string name, int linenum)
 {
-	return new SyntaxTreeNodeFinal(0, name);
+	return new SyntaxTreeNodeFinal(0, name, linenum);
 }
 
 ///新建叶节点，会分配内存
 ///type为1（整形叶节点）
-SyntaxTreeNodeFinal * MakeLeaf(int val)
+SyntaxTreeNodeFinal * MakeLeaf(int val, int linenum)
 {
 	SyntaxTreeNodeFinalValue tmp; tmp.intValue = val;
-	return new SyntaxTreeNodeFinal(1, tmp);
+	return new SyntaxTreeNodeFinal(1, tmp, linenum);
 }
 
 ///新建叶节点，会分配内存
 ///type为2（实数叶节点）
-SyntaxTreeNodeFinal * MakeLeaf(double val)
+SyntaxTreeNodeFinal * MakeLeaf(double val, int linenum)
 {
 	SyntaxTreeNodeFinalValue tmp; tmp.realValue = val;
-	return new SyntaxTreeNodeFinal(2, tmp);
+	return new SyntaxTreeNodeFinal(2, tmp, linenum);
 }
 
 ///新建叶节点，会分配内存
 ///type为3（布尔叶节点）
-SyntaxTreeNodeFinal * MakeLeaf(bool val)
+SyntaxTreeNodeFinal * MakeLeaf(bool val, int linenum)
 {
 	SyntaxTreeNodeFinalValue tmp; tmp.boolValue = val;
-	return new SyntaxTreeNodeFinal(3, tmp);
+	return new SyntaxTreeNodeFinal(3, tmp, linenum);
 }
 
 ///新建叶节点，会分配内存
 ///type为4（字符叶节点）
-SyntaxTreeNodeFinal * MakeLeaf(char val)
+SyntaxTreeNodeFinal * MakeLeaf(char val, int linenum)
 {
 	SyntaxTreeNodeFinalValue tmp; tmp.charValue = val;
-	return new SyntaxTreeNodeFinal(4, tmp);
+	return new SyntaxTreeNodeFinal(4, tmp, linenum);
 }
 
 SyntaxTreeNodeOperator * MakeOperator(int opnum)
@@ -225,36 +225,36 @@ void trans(const SyntaxTreeNode* rt, int lev)
 		case 0:
 		{
 			printTab(lev);
-			std::cout << "Variable:" << tmp->VariableName() << std::endl;
+			std::cout << "[" << tmp->GetLineNum() << "]" << "Variable:" << tmp->VariableName() << std::endl;
 			break;
 		}
 		case 1:
 		{
 			printTab(lev);
-			std::cout << "Integer:" << tmp->Value().intValue << std::endl;
+			std::cout << "[" << tmp->GetLineNum() << "]" << "Integer:" << tmp->Value().intValue << std::endl;
 			break;
 		}
 		case 2:
 		{
 			printTab(lev);
-			std::cout << "Real:" << tmp->Value().realValue << std::endl;
+			std::cout << "[" << tmp->GetLineNum() << "]" << "Real:" << tmp->Value().realValue << std::endl;
 			break;
 		}
 		case 3:
 		{
 			printTab(lev);
-			std::cout << "Boolean:" << tmp->Value().boolValue << std::endl;
+			std::cout << "[" << tmp->GetLineNum() << "]" << "Boolean:" << tmp->Value().boolValue << std::endl;
 			break;
 		}
 		case 4:
 		{
 			printTab(lev);
-			std::cout << "Char:" << tmp->Value().charValue << std::endl;
+			std::cout << "[" << tmp->GetLineNum() << "]" << "Char:" << tmp->Value().charValue << std::endl;
 			break;
 		}
 		}
 		break;
-	}	
+	}
 	case 1:
 	case 14:
 	case 18:
