@@ -177,7 +177,7 @@ SyntaxTreeNodeFinal* MakeLeaf(std::string name)
 ///type为1（整形叶节点）
 SyntaxTreeNodeFinal * MakeLeaf(int val)
 {
-	SyntaxTreeFinalNodeValue tmp; tmp.intValue = val;
+	SyntaxTreeNodeFinalValue tmp; tmp.intValue = val;
 	return new SyntaxTreeNodeFinal(1, tmp);
 }
 
@@ -185,7 +185,7 @@ SyntaxTreeNodeFinal * MakeLeaf(int val)
 ///type为2（实数叶节点）
 SyntaxTreeNodeFinal * MakeLeaf(double val)
 {
-	SyntaxTreeFinalNodeValue tmp; tmp.realValue = val;
+	SyntaxTreeNodeFinalValue tmp; tmp.realValue = val;
 	return new SyntaxTreeNodeFinal(2, tmp);
 }
 
@@ -193,7 +193,7 @@ SyntaxTreeNodeFinal * MakeLeaf(double val)
 ///type为3（布尔叶节点）
 SyntaxTreeNodeFinal * MakeLeaf(bool val)
 {
-	SyntaxTreeFinalNodeValue tmp; tmp.boolValue = val;
+	SyntaxTreeNodeFinalValue tmp; tmp.boolValue = val;
 	return new SyntaxTreeNodeFinal(3, tmp);
 }
 
@@ -201,7 +201,7 @@ SyntaxTreeNodeFinal * MakeLeaf(bool val)
 ///type为4（字符叶节点）
 SyntaxTreeNodeFinal * MakeLeaf(char val)
 {
-	SyntaxTreeFinalNodeValue tmp; tmp.charValue = val;
+	SyntaxTreeNodeFinalValue tmp; tmp.charValue = val;
 	return new SyntaxTreeNodeFinal(4, tmp);
 }
 

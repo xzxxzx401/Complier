@@ -28,6 +28,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SyntaxTreeNodeType.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Tree.jpg" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{10CD00D0-9ECE-4373-8C7B-6CBECCFB88AE}</ProjectGuid>

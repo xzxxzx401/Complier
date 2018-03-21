@@ -1,41 +1,50 @@
 #pragma once
 
+///语法树的叶子节点
+///
+
 #include "SyntaxTreeNode.h"
 #include <string>
-union SyntaxTreeFinalNodeValue
+
+///联合体，定义了节点的值类型
+union SyntaxTreeNodeFinalValue
 {
 	int intValue;
 	double realValue;
 	bool boolValue;
 	char charValue;
 };
-struct SyntaxTreeFinalNodeVariable
+
+///定义了节点的变量
+struct SyntaxTreeNodeFinalVariable
 {
-	std::string name;
-	int block, ptr;
+	std::string name;//变量名
+	int block, ptr;//块，符号表指针（语义分析填写）
 };
+
+//叶子节点
 class SyntaxTreeNodeFinal :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeFinal(const int type, const  SyntaxTreeFinalNodeValue val);
+	SyntaxTreeNodeFinal(const int type, const  SyntaxTreeNodeFinalValue val);
 	SyntaxTreeNodeFinal(const int type, const  std::string name);
-	int& VariableBlock();
-	int& VariablePtr();
-	const int VariableBlock()const;
-	const int VariablePtr()const;
-	const std::string VariableName()const;
-	const SyntaxTreeFinalNodeValue Value()const;
+	int& VariableBlock();//变量作用域
+	int& VariablePtr();//变量的符号表指针
+	const int VariableBlock()const;//变量作用域
+	const int VariablePtr()const;//变量的符号表指针
+	const std::string VariableName()const;//变量名
+	const SyntaxTreeNodeFinalValue Value()const;//常量值
 	const int GetType()const { return type; }
 protected:
 	int type;//0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-	SyntaxTreeFinalNodeValue value;
-	SyntaxTreeFinalNodeVariable variable;
+	SyntaxTreeNodeFinalValue value;//值类型
+	SyntaxTreeNodeFinalVariable variable;//变量
 };
 
 
 //type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
-inline SyntaxTreeNodeFinal::SyntaxTreeNodeFinal(int type, SyntaxTreeFinalNodeValue val)
+inline SyntaxTreeNodeFinal::SyntaxTreeNodeFinal(int type, SyntaxTreeNodeFinalValue val)
 	:SyntaxTreeNode(0), value(val), type(type)
 {
 }
@@ -71,7 +80,7 @@ inline const std::string SyntaxTreeNodeFinal::VariableName() const
 	return this->variable.name;
 }
 
-inline const SyntaxTreeFinalNodeValue SyntaxTreeNodeFinal::Value() const
+inline const SyntaxTreeNodeFinalValue SyntaxTreeNodeFinal::Value() const
 {
 	return this->value;
 }

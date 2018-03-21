@@ -1,5 +1,9 @@
 #pragma once
 
+///定义了语法树的非终结节点
+///按树的形态定义了13种节点
+///详细分类于产生式见Tree.jpg
+
 #include "SyntaxTreeNode.h"
 #include "SyntaxTreeFinalNode.h"
 #include "SyntaxTreeNodeOperator.h"

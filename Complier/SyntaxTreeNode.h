@@ -1,5 +1,8 @@
 #pragma once
 
+///节点基类
+///是语法树节点的抽象
+///节点内指明了使用的产生式序号
 class SyntaxTreeNode
 {
 protected:
