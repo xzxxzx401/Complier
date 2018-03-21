@@ -1,6 +1,8 @@
 #pragma once
+
 #include "SyntaxTreeNode.h"
-#include"SyntaxTreeFinalNode.h"
+#include "SyntaxTreeFinalNode.h"
+#include "SyntaxTreeNodeOperator.h"
 
 ///TreeNodeTypeA
 ///        *
@@ -12,7 +14,7 @@ class SyntaxTreeNodeTypeA :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeA(int typenumber, SyntaxTreeNode* first, SyntaxTreeNode *second)
+	SyntaxTreeNodeTypeA(const int typenumber, SyntaxTreeNode* first, SyntaxTreeNode *second)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -43,7 +45,7 @@ class SyntaxTreeNodeTypeB :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeB(int typenumber, SyntaxTreeFinalNode* first)
+	SyntaxTreeNodeTypeB(int typenumber, SyntaxTreeNodeFinal* first)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -54,9 +56,9 @@ public:
 			delete this->first;
 		this->first = nullptr;
 	}
-	const SyntaxTreeFinalNode* First()const { return first; }
+	const SyntaxTreeNodeFinal* First()const { return first; }
 protected:
-	SyntaxTreeFinalNode * first;
+	SyntaxTreeNodeFinal * first;
 };
 
 ///TreeNodeTypeC
@@ -137,7 +139,8 @@ class SyntaxTreeNodeTypeE :
 {
 public:
 	SyntaxTreeNodeTypeE(int typenumber)
-		:SyntaxTreeNode(typenumber) {}
+		:SyntaxTreeNode(typenumber)
+	{}
 	virtual ~SyntaxTreeNodeTypeE() {}
 };
 
@@ -152,7 +155,7 @@ class SyntaxTreeNodeTypeF :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeF(int typenumber, SyntaxTreeNode* first, SyntaxTreeFinalNode * second, SyntaxTreeFinalNode * third)
+	SyntaxTreeNodeTypeF(int typenumber, SyntaxTreeNode* first, SyntaxTreeNodeFinal * second, SyntaxTreeNodeFinal * third)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -171,12 +174,12 @@ public:
 		this->second = this->third = nullptr;
 	}
 	const SyntaxTreeNode* First()const { return first; }
-	const SyntaxTreeFinalNode* Second()const { return second; }
-	const SyntaxTreeFinalNode* Third()const { return third; }
+	const SyntaxTreeNodeFinal* Second()const { return second; }
+	const SyntaxTreeNodeFinal* Third()const { return third; }
 protected:
 	SyntaxTreeNode * first;
-	SyntaxTreeFinalNode * second;
-	SyntaxTreeFinalNode * third;
+	SyntaxTreeNodeFinal * second;
+	SyntaxTreeNodeFinal * third;
 };
 
 
@@ -190,7 +193,7 @@ class SyntaxTreeNodeTypeG :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeG(int typenumber, SyntaxTreeFinalNode* first, SyntaxTreeFinalNode * second)
+	SyntaxTreeNodeTypeG(int typenumber, SyntaxTreeNodeFinal* first, SyntaxTreeNodeFinal * second)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -204,11 +207,11 @@ public:
 			delete this->second;
 		this->first = this->second = nullptr;
 	}
-	const SyntaxTreeFinalNode* First()const { return first; }
-	const SyntaxTreeFinalNode* Second()const { return second; }
+	const SyntaxTreeNodeFinal* First()const { return first; }
+	const SyntaxTreeNodeFinal* Second()const { return second; }
 protected:
-	SyntaxTreeFinalNode * first;
-	SyntaxTreeFinalNode * second;
+	SyntaxTreeNodeFinal * first;
+	SyntaxTreeNodeFinal * second;
 };
 
 
@@ -259,7 +262,7 @@ class SyntaxTreeNodeTypeI :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeI(int typenumber, SyntaxTreeNode* first, SyntaxTreeFinalNode * second)
+	SyntaxTreeNodeTypeI(int typenumber, SyntaxTreeNode* first, SyntaxTreeNodeFinal * second)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -275,10 +278,10 @@ public:
 		this->second = nullptr;
 	}
 	const SyntaxTreeNode* First()const { return first; }
-	const SyntaxTreeFinalNode* Second()const { return second; }
+	const SyntaxTreeNodeFinal* Second()const { return second; }
 protected:
 	SyntaxTreeNode * first;
-	SyntaxTreeFinalNode * second;
+	SyntaxTreeNodeFinal * second;
 };
 
 ///TreeNodeTypeJ
@@ -291,7 +294,7 @@ class SyntaxTreeNodeTypeJ :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeJ(int typenumber, SyntaxTreeFinalNode * first, SyntaxTreeNode* second)
+	SyntaxTreeNodeTypeJ(int typenumber, SyntaxTreeNodeFinal * first, SyntaxTreeNode* second)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -306,10 +309,10 @@ public:
 		this->first = nullptr;
 		this->second = nullptr;
 	}
-	const SyntaxTreeFinalNode* First()const { return first; }
+	const SyntaxTreeNodeFinal* First()const { return first; }
 	const SyntaxTreeNode* Second()const { return second; }
 protected:
-	SyntaxTreeFinalNode * first;
+	SyntaxTreeNodeFinal * first;
 	SyntaxTreeNode * second;
 };
 
@@ -323,7 +326,7 @@ class SyntaxTreeNodeTypeK :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeK(int typenumber, SyntaxTreeFinalNode* first, SyntaxTreeNode * second, SyntaxTreeNode * third)
+	SyntaxTreeNodeTypeK(int typenumber, SyntaxTreeNodeFinal* first, SyntaxTreeNode * second, SyntaxTreeNode * third)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -342,11 +345,11 @@ public:
 		this->second = nullptr;
 		this->third = nullptr;
 	}
-	const SyntaxTreeFinalNode* First()const { return first; }
+	const SyntaxTreeNodeFinal* First()const { return first; }
 	const SyntaxTreeNode* Second()const { return second; }
 	const SyntaxTreeNode* Third()const { return third; }
 protected:
-	SyntaxTreeFinalNode * first;
+	SyntaxTreeNodeFinal * first;
 	SyntaxTreeNode* second;
 	SyntaxTreeNode* third;
 };
@@ -361,7 +364,7 @@ class SyntaxTreeNodeTypeL :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeL(int typenumber, SyntaxTreeNode* first, int second, SyntaxTreeNode * third)
+	SyntaxTreeNodeTypeL(int typenumber, SyntaxTreeNode* first, SyntaxTreeNodeOperator* second, SyntaxTreeNode * third)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -378,11 +381,11 @@ public:
 		this->third = nullptr;
 	}
 	const SyntaxTreeNode* First()const { return first; }
-	const int Second() { return second; }
-	const SyntaxTreeNode* Second()const { return third; }
+	const SyntaxTreeNodeOperator* Second()const { return second; }
+	const SyntaxTreeNode* Third()const { return third; }
 protected:
 	SyntaxTreeNode * first;
-	int second;
+	SyntaxTreeNodeOperator* second;
 	SyntaxTreeNode * third;
 };
 
@@ -396,7 +399,7 @@ class SyntaxTreeNodeTypeM :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeTypeM(int typenumber, SyntaxTreeFinalNode* first, int second, SyntaxTreeNode * third, SyntaxTreeNode* forth, SyntaxTreeNode* fifth)
+	SyntaxTreeNodeTypeM(int typenumber, SyntaxTreeNodeFinal* first, SyntaxTreeNodeOperator* second, SyntaxTreeNode * third, SyntaxTreeNode* forth, SyntaxTreeNode* fifth)
 		:SyntaxTreeNode(typenumber)
 	{
 		this->first = first;
@@ -420,18 +423,46 @@ public:
 		this->forth = nullptr;
 		this->fifth = nullptr;
 	}
-	const SyntaxTreeFinalNode* First()const { return first; }
-	const int Second()const { return second; }
+	const SyntaxTreeNodeFinal* First()const { return first; }
+	const SyntaxTreeNodeOperator* Second()const { return second; }
 	const SyntaxTreeNode* Third()const { return third; }
 	const SyntaxTreeNode* Forth()const { return forth; }
 	const SyntaxTreeNode* Fifth()const { return fifth; }
 protected:
-	SyntaxTreeFinalNode * first;
-	int second;
+	SyntaxTreeNodeFinal * first;
+	SyntaxTreeNodeOperator* second;
 	SyntaxTreeNode * third;
 	SyntaxTreeNode * forth;
 	SyntaxTreeNode * fifth;
 };
+
 #include <initializer_list>
-SyntaxTreeNode* MakeNode(int type, std::initializer_list<SyntaxTreeNode> args);
-SyntaxTreeFinalNode* MakeLeaf(int type, std::initializer_list<int> args);
+SyntaxTreeNode* MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args);
+
+//type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
+SyntaxTreeNodeFinal* MakeLeaf(std::string name);
+
+//type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
+SyntaxTreeNodeFinal* MakeLeaf(int val);
+
+//type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
+SyntaxTreeNodeFinal* MakeLeaf(double val);
+
+//type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
+SyntaxTreeNodeFinal* MakeLeaf(bool val);
+
+//type 0位符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
+SyntaxTreeNodeFinal* MakeLeaf(char val);
+
+//opnum表示运算符标号
+//			0 1  2 3  4 5
+//relop		= <> < <= > >=
+//			6 7 8
+//addlop	+ - or
+//			9 10 11  12  13
+//mulop		* /  div mod and
+//			14
+//assignop	:=
+SyntaxTreeNodeOperator* MakeOperator(int opnum);
+
+void trans(const SyntaxTreeNode* rt, int lev);

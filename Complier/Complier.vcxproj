@@ -21,16 +21,12 @@
   <ItemGroup>
     <ClInclude Include="SyntaxTreeNode.h" />
     <ClInclude Include="SyntaxTreeFinalNode.h" />
+    <ClInclude Include="SyntaxTreeNodeOperator.h" />
     <ClInclude Include="SyntaxTreeNodeType.h" />
-    <ClInclude Include="tmp.tab.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SyntaxTreeNodeType.cpp" />
-    <ClCompile Include="tmp.tab.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="tmp.y" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

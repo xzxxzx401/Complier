@@ -21,10 +21,10 @@
     <ClInclude Include="SyntaxTreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="tmp.tab.h">
+    <ClInclude Include="SyntaxTreeNodeType.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SyntaxTreeNodeType.h">
+    <ClInclude Include="SyntaxTreeNodeOperator.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,14 +32,8 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="tmp.tab.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="SyntaxTreeNodeType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="tmp.y" />
   </ItemGroup>
 </Project>
