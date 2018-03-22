@@ -1,9 +1,8 @@
 %{
 	#include <stdio.h>
 	#include <ctype.h>
-	#include <math.h>
+	#include "SyntaxTreeNodeType.h"
  
-	#define YYSTYPE  double
  
 	void yyerror(char *text);
 	int yylex(void);
@@ -13,11 +12,16 @@
 // declarations section
  
 // place any declarations here
-%token NUMBER
-
-%left '+' '-'
-%left '*' '/'
-%right '^'
+%union{
+	SyntaxTreeNode *a;
+	SyntaxTreeNodeOperator *b;
+	SyntaxTreeNodeFinal *c;
+}
+%token <c> NUMBER
+%token <b> OP
+%token PROGRAM
+%token ID
+%type <a> programstruct program_head program_body
  
 %%
  
@@ -25,27 +29,13 @@
 // rules section
  
 // place your YACC rules here (there must be at least one)
- 
-command : exp {printf("%lf\n",$1);}
-   ;
-exp       : NUMBER          {$$ = $1;}
-       | exp '+' exp     {$$ = $1 + $3;}
-       | exp '-' exp     {$$ = $1 - $3;}
-       | exp '*' exp     {$$ = $1 * $3;}
-       | exp '/' exp     {
-                            if(0 != $3)
-                            {
-                               $$ = $1 / $3;
-                            }
-                            else
-                            {
-                               $$=0;
-                            }
-                        }
-       | exp '^' exp     {$$ = pow($1,$3);}
-       | '(' exp ')'     {$$ = $2;}
-       ;
- 
+
+programstruct : program_head ';' program_body '.'{$$ = MakeNode(1,{$1,$3});}
+
+program_head : PROGRAM ID {$$=MakeLeaf("aaa",1);}
+
+program_body : NUMBER {$$=MakeLeaf(2,2);}
+	
 %%
  
 /////////////////////////////////////////////////////////////////////////////
