@@ -6,6 +6,8 @@
  
 	void yyerror(char *text);
 	int yylex(void);
+	extern int yylinenum;
+	extern int yyval;
 %}
  
 /////////////////////////////////////////////////////////////////////////////
@@ -20,9 +22,9 @@
 }
 %token <c> NUM
 %token <b> OP
-%token PROGRAM
 %token <id> ID
-%type <a> programstruct program_head program_body
+%token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR 
+%type <a> programstruct program_head program_body const_declarations const_declaration const_value
  
 %%
  
@@ -37,13 +39,13 @@ program_head : PROGRAM ID {$$=MakeLeaf($2,1);}
 
 program_body : const_declarations /*var_declarations subprogram_declarations compound_statement*/ {$$=MakeNode($1/*,$2,$3,$4*/);}
 
-const_declarations -> /*const*/ const_declaration {$$=MakeNode($1);}
-const_declarations -> {$$=NULL;}
-const_declaration -> const_declaration ';' ID '=' const_value{$$=MakeNode($1)}
-const_declaration -> ID '=' const_value
-const_value -> '+' NUM
-const_value -> '-' NUM
-const_value -> NUM
+const_declarations : CONST const_declaration {$$=MakeNode($2);}
+const_declarations : {$$=NULL;}
+const_declaration : const_declaration ';' ID '=' const_value{$$=MakeNode($1);}
+const_declaration : ID '=' const_value {$$=MakeNode(std::string(yyval));}
+const_value : '+' NUM {$$=MakeLeaf(yyval,yylinenum);}
+const_value : '-' NUM {$$=MakeLeaf(-yyval,yylinenum);}
+const_value : NUM {$$=MakeLeaf(yyval,yylinenum);}
 /*
 var_declarations -> var var_declaration ;
 var_declarations -> epsilon
