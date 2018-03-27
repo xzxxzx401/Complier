@@ -74,14 +74,13 @@
 	#include <ctype.h>
 	#include "SyntaxTreeNodeType.h"
  
-	#define YYSTYPE  double
  
 	void yyerror(char *text);
 	int yylex(void);
 
 
 /* Line 189 of yacc.c  */
-#line 85 "tmp.tab.c"
+#line 84 "tmp.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -122,11 +121,12 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 16 "tmp.y"
+#line 15 "tmp.y"
 
-	SyntaxTreeNodeType *a;
+	SyntaxTreeNode *a;
 	SyntaxTreeNodeOperator *b;
 	SyntaxTreeNodeFinal *c;
+	char *id;
 
 
 
@@ -420,7 +420,7 @@ static const yytype_uint8 yyprhs[] =
 static const yytype_int8 yyrhs[] =
 {
       10,     0,    -1,    11,     7,    12,     8,    -1,     5,     6,
-      -1,     3,    -1
+      -1,     6,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
@@ -480,7 +480,7 @@ static const yytype_int8 yydefgoto[] =
 #define YYPACT_NINF -6
 static const yytype_int8 yypact[] =
 {
-      -5,    -4,     1,    -3,    -6,    -6,     0,    -6,    -2,    -6
+      -5,    -4,     1,    -3,    -6,    -6,    -1,    -6,    -2,    -6
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -496,19 +496,19 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       1,     5,     4,     7,     6,     0,     9
+       1,     5,     4,     0,     6,     7,     9
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,     0,     6,     3,     7,    -1,     8
+       5,     0,     6,    -1,     7,     6,     8
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     5,    10,    11,     6,     0,     7,     3,    12,     8
+       0,     5,    10,    11,     6,     0,     7,     6,    12,     8
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1330,14 +1330,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 36 "tmp.y"
-    {(yyval.a)=MakeLeaf(string(),1);;}
+    {(yyval.a)=MakeLeaf((yyvsp[(2) - (2)].id),1);;}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
 #line 38 "tmp.y"
-    {(yyval.a)=MakeLeaf(2,2);;}
+    { (yyval.a)=0;;}
     break;
 
 
@@ -1555,7 +1555,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 40 "tmp.y"
+#line 39 "tmp.y"
 
  
 /////////////////////////////////////////////////////////////////////////////
