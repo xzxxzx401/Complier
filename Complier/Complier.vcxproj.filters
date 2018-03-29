@@ -15,48 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SyntaxTree\SyntaxTreeNode.h">
+    <ClInclude Include="SyntaxTreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SyntaxTree\SyntaxTreeNodeFinal.h">
+    <ClInclude Include="SyntaxTreeNodeType.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SyntaxTree\SyntaxTreeNodeOperator.h">
+    <ClInclude Include="SyntaxTreeNodeOperator.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SyntaxTree\SyntaxTreeNodeType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LexAnalyze\InputBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LexAnalyze\LetterTriple.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LexAnalyze\Lexer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SyntaxAnalyze\tmp.tab.h">
+    <ClInclude Include="SyntaxTreeNodeFinal.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LexAnalyze\InputBuffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LexAnalyze\Lexer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxTree\SyntaxTreeNodeType.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxAnalyze\tmp.tab.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SyntaxAnalyze\wapper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SyntaxTreeNodeType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,6 +47,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Bison Include="SyntaxAnalyze\tmp.y" />
+    <Bison Include="tmp.y" />
   </ItemGroup>
 </Project>
