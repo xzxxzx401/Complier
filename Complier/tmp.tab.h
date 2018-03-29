@@ -46,28 +46,13 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUMBER = 258,
-     OP = 259,
-     PROGRAM = 260,
-     ID = 261
+     NUMBER = 258
    };
 #endif
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-{
-/* Line 2058 of yacc.c  */
-#line 15 "tmp.y"
-
-	SyntaxTreeNode *a;
-	SyntaxTreeNodeOperator *b;
-	SyntaxTreeNodeFinal *c;
-
-
-/* Line 2058 of yacc.c  */
-#line 70 "tmp.tab.h"
-} YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -5,7 +5,7 @@
 ///详细分类于产生式见Tree.jpg
 
 #include "SyntaxTreeNode.h"
-#include "SyntaxTreeNodeFinal.h"
+#include "SyntaxTreeFinalNode.h"
 #include "SyntaxTreeNodeOperator.h"
 
 ///TreeNodeTypeA
