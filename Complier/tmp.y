@@ -1,11 +1,11 @@
 %{
 	#include <stdio.h>
 	#include <ctype.h>
-	#include"..\SyntaxTree\SyntaxTreeNodeType.h"
+	#include "SyntaxTreeNodeType.h"
  
  
-	void yyerror(const char *text);
-	extern int yylex(void);
+	void yyerror(char *text);
+	int yylex(void);
 	extern int yylinenum;
 	extern int yyval;
 %}
@@ -18,9 +18,11 @@
 	SyntaxTreeNode *a;
 	SyntaxTreeNodeOperator *b;
 	SyntaxTreeNodeFinal *c;
+	char *id;
 }
-%token <c> NUM ID
+%token <c> NUM
 %token <b> OP
+%token <id> ID
 %token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR 
 %type <a> programstruct program_head program_body const_declarations const_declaration const_value
  
@@ -33,18 +35,17 @@
 
 programstruct : program_head ';' program_body '.'{$$ = MakeNode(1,{$1,$3});}
 
-program_head : PROGRAM ID {$$=MakeNode(2,{$2});}
+program_head : PROGRAM ID {$$=MakeLeaf($2,1);}
 
-program_body : const_declarations /*var_declarations subprogram_declarations compound_statement*/ {$$=MakeNode(3,{$1}/*,$2,$3,$4}*/);}
+program_body : const_declarations /*var_declarations subprogram_declarations compound_statement*/ {$$=MakeNode($1/*,$2,$3,$4*/);}
 
-const_declarations : CONST const_declaration {$$=MakeNode(4,{$2});}
+const_declarations : CONST const_declaration {$$=MakeNode($2);}
 const_declarations : {$$=NULL;}
-const_declaration : const_declaration ';' ID '=' const_value{$$=MakeNode(6,{$1,$3,$5});}
-const_declaration : ID '=' const_value {$$=MakeNode(7,{$1,$3});}
-const_value : '+' NUM {$$=MakeNode(8,{$2});}
-const_value : '-' NUM {$$=MakeNode(9,{$2});}
-const_value : NUM {$$=MakeNode(10,{$1});}
-
+const_declaration : const_declaration ';' ID '=' const_value{$$=MakeNode($1);}
+const_declaration : ID '=' const_value {$$=MakeNode(std::string(yyval));}
+const_value : '+' NUM {$$=MakeLeaf(yyval,yylinenum);}
+const_value : '-' NUM {$$=MakeLeaf(-yyval,yylinenum);}
+const_value : NUM {$$=MakeLeaf(yyval,yylinenum);}
 /*
 var_declarations -> var var_declaration ;
 var_declarations -> epsilon
@@ -109,7 +110,7 @@ factor -> uminus factor
  
 /////////////////////////////////////////////////////////////////////////////
 // programs section
-/*
+ 
 int yylex(void)
 {
    // place your token retrieving code here
@@ -129,8 +130,8 @@ int yylex(void)
    }
   
    return c;
-}*/
-/*
+}
+ 
 int main(void)
 {
   
@@ -138,7 +139,7 @@ int main(void)
  
    system("PAUSE");
    return 0;
-}*/
+}
  
 void yyerror(const char *text)
 {

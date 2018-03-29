@@ -19,22 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LexAnalyze\InputBuffer.h" />
-    <ClInclude Include="LexAnalyze\LetterTriple.h" />
-    <ClInclude Include="LexAnalyze\Lexer.h" />
-    <ClInclude Include="SyntaxAnalyze\tmp.tab.h" />
-    <ClInclude Include="SyntaxTree\SyntaxTreeNode.h" />
-    <ClInclude Include="SyntaxTree\SyntaxTreeNodeFinal.h" />
-    <ClInclude Include="SyntaxTree\SyntaxTreeNodeOperator.h" />
-    <ClInclude Include="SyntaxTree\SyntaxTreeNodeType.h" />
+    <ClInclude Include="SyntaxTreeNode.h" />
+    <ClInclude Include="SyntaxTreeNodeFinal.h" />
+    <ClInclude Include="SyntaxTreeNodeOperator.h" />
+    <ClInclude Include="SyntaxTreeNodeType.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LexAnalyze\InputBuffer.cpp" />
-    <ClCompile Include="LexAnalyze\Lexer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SyntaxAnalyze\tmp.tab.cpp" />
-    <ClCompile Include="SyntaxAnalyze\wapper.cpp" />
-    <ClCompile Include="SyntaxTree\SyntaxTreeNodeType.cpp" />
+    <ClCompile Include="SyntaxTreeNodeType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Tree.jpg" />
@@ -43,7 +35,7 @@
     <Text Include="产生式.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Bison Include="SyntaxAnalyze\tmp.y" />
+    <Bison Include="tmp.y" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -106,7 +98,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

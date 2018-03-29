@@ -1,7 +1,5 @@
-#include"SyntaxTree\SyntaxTreeNodeType.h"
+#include"SyntaxTreeNodeType.h"
 #include<iostream>
-#include"SyntaxAnalyze\tmp.tab.h"
-
 using namespace std;
 //int main()
 //{
@@ -12,12 +10,3 @@ using namespace std;
 //	system("pause");
 //	return 0;
 //}
-string inputFileName;
-int main(void)
-{
-	inputFileName = "test.pas";
-	yyparse();
-
-	system("PAUSE");
-	return 0;
-}
