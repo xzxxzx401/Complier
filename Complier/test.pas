@@ -1,1 +1,2 @@
-integer Program example;
+Program example;
+.

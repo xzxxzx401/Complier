@@ -29,9 +29,7 @@
    
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
-
-#include"../SyntaxTree/SyntaxTreeNodeType.h"
-
+#include"..\SyntaxTree\SyntaxTreeNodeType.h"
 #ifndef YY_YY_TMP_TAB_H_INCLUDED
 # define YY_YY_TMP_TAB_H_INCLUDED
 /* Enabling traces.  */

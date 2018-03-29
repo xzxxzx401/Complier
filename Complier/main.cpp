@@ -16,7 +16,7 @@ string inputFileName;
 int main(void)
 {
 	inputFileName = "test.pas";
-	yyparse();
+	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
 
 	system("PAUSE");
 	return 0;

@@ -35,7 +35,7 @@ programstruct : program_head ';' program_body '.'{$$ = MakeNode(1,{$1,$3});}
 
 program_head : PROGRAM ID {$$=MakeNode(2,{$2});}
 
-program_body : const_declarations /*var_declarations subprogram_declarations compound_statement*/ {$$=MakeNode(3,{$1}/*,$2,$3,$4}*/);}
+program_body : const_declarations /*var_declarations subprogram_declarations compound_statement*/ {$$=MakeNode(3,{$1,NULL,NULL,NULL}/*,$2,$3,$4}*/);}
 
 const_declarations : CONST const_declaration {$$=MakeNode(4,{$2});}
 const_declarations : {$$=NULL;}

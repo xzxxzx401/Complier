@@ -616,11 +616,13 @@ void Lexer::printErrorInfo(const Type &type)
 
 void Lexer::printStatistics(void)
 {
+#ifdef LEXDEBUG
 	cout << "\n\n==========================" << endl;
 	cout << "Lexical analysis finish!" << endl;
 	cout << errorNum << " Error(s), " << curChar << " chars, " << endl;
 	cout << curWord << " words, " << curLine << " line(s)." << endl;
 	cout << "==========================" << endl;
+#endif // LEXDEBUG
 }
 
 LetterTriple Lexer::getTriple(void)

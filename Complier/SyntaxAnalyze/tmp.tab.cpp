@@ -798,7 +798,7 @@ do {					\
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
    multiple parsers can coexist.  */
-int yydebug;
+int yydebug=1;
 #else /* !YYDEBUG */
 # define YYDPRINTF(Args)
 # define YY_SYMBOL_PRINT(Title, Type, Value, Location)
@@ -1391,7 +1391,7 @@ yyreduce:
   case 4:
 /* Line 1792 of yacc.c  */
 #line 38 "tmp.y"
-    {(yyval.a)=MakeNode(3,{(yyvsp[(1) - (1)].a)}/*,$2,$3,$4}*/);}
+    {(yyval.a)=MakeNode(3,{(yyvsp[(1) - (1)].a),NULL,NULL,NULL}/*,$2,$3,$4}*/);}
     break;
 
   case 5:
