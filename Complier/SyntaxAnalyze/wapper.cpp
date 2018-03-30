@@ -95,15 +95,18 @@ int yylex(void)
 		{
 			if (tmp.value == "+")
 			{
-
+				yylval.b = new SyntaxTreeNodeOperator(6, tmp.row);
+				return yytokentype::ADD;
 			}
 			else if (tmp.value == "-")
 			{
-
+				yylval.b = new SyntaxTreeNodeOperator(7, tmp.row);
+				return yytokentype::SUB;
 			}
 			else if (tmp.value == "or")
 			{
-
+				yylval.b = new SyntaxTreeNodeOperator(8, tmp.row);
+				return yytokentype::OR;
 			}
 			else
 			{
@@ -114,7 +117,7 @@ int yylex(void)
 		}
 		case SymbolType::_assignop:
 		{
-			yylval.b = new SyntaxTreeNodeOperator(14);
+			yylval.b = new SyntaxTreeNodeOperator(14, tmp.row);
 			return yytokentype::EQU;
 		}
 		default:

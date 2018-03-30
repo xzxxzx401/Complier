@@ -18,6 +18,7 @@ class SyntaxTreeNodeOperator :
 {
 public:
 	SyntaxTreeNodeOperator(int op, int linenum);
+
 	virtual ~SyntaxTreeNodeOperator();
 	const int GetOp()const { return this->op; }
 private:
