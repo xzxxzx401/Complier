@@ -17,17 +17,18 @@ class SyntaxTreeNodeOperator :
 	public SyntaxTreeNode
 {
 public:
-	SyntaxTreeNodeOperator(int op);
+	SyntaxTreeNodeOperator(int op, int linenum);
 	virtual ~SyntaxTreeNodeOperator();
 	const int GetOp()const { return this->op; }
 private:
 	int op;
+	int linenum;
 };
 
 
 
-inline SyntaxTreeNodeOperator::SyntaxTreeNodeOperator(int op)
-	:SyntaxTreeNode(0), op(op)
+inline SyntaxTreeNodeOperator::SyntaxTreeNodeOperator(int op, int linenum)
+	:SyntaxTreeNode(0), op(op), linenum(linenum)
 {}
 
 
