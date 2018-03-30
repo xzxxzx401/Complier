@@ -64,7 +64,12 @@ int yylex(void)
 			else if (tmp.value == "char")
 				return yytokentype::CHAR;
 			else
-				assert("warpper.cpp" + __LINE__);
+			{
+#ifdef SYNTAXDEBUG
+				cout << __FILE__ + __LINE__ << "Should not reach here";
+				assert(0);
+#endif // SYNTAXDEBUG
+			}
 			break;
 		}
 		case SymbolType::_id:
@@ -74,6 +79,9 @@ int yylex(void)
 		}
 		case SymbolType::_delimiter:
 		{
+#ifdef SYNTAXDEBUG
+			assert(tmp.value.size() == 1);
+#endif // SYNTAXDEBUG
 			return tmp.value[0];
 		}
 		case SymbolType::_integer:
@@ -83,13 +91,112 @@ int yylex(void)
 			yylval.c = new SyntaxTreeNodeFinal(1, val, yylinenum);
 			return yytokentype::NUM;
 		}
+		case SymbolType::_char:
+		{
+			SyntaxTreeNodeFinalValue val;
+			val.charValue = tmp.value[0];
+			yylval.c = new SyntaxTreeNodeFinal(4, val, yylinenum);
+			return yytokentype::NUM;
+		}
+		case SymbolType::_boolean:
+		{
+			SyntaxTreeNodeFinalValue val;
+			if (tmp.value == "true")
+				val.boolValue = 1;
+			else if (tmp.value == "false")
+				val.boolValue = 0;
+			else
+			{
+#ifdef SYNTAXDEBUG
+				cout << __FILE__ + __LINE__ << "Should not reach here";
+				assert(0);
+#endif // SYNTAXDEBUG
+			}
+
+			yylval.c = new SyntaxTreeNodeFinal(3, val, yylinenum);
+			return yytokentype::NUM;
+		}
+		case SymbolType::_real:
+		{
+			SyntaxTreeNodeFinalValue val;
+			val.realValue = stod(tmp.value);
+			yylval.c = new SyntaxTreeNodeFinal(2, val, yylinenum);
+			return yytokentype::NUM;
+		}
 		case SymbolType::_relop:
 		{
-
+			if (tmp.value == "=")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(0, tmp.row);
+				return yytokentype::EQU;
+			}
+			else if (tmp.value == "<>")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(1, tmp.row);
+				return yytokentype::DIV;
+			}
+			else if (tmp.value == "<")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(2, tmp.row);
+				return yytokentype::LESS;
+			}
+			else if (tmp.value == "<=")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(3, tmp.row);
+				return yytokentype::ELESS;
+			}
+			else if (tmp.value == ">")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(4, tmp.row);
+				return yytokentype::GRETTER;
+			}
+			else if (tmp.value == ">=")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(5, tmp.row);
+				return yytokentype::EGRETTER;
+			}
+			else
+			{
+#ifdef SYNTAXDEBUG
+				cout << __FILE__ + __LINE__ << "Should not reach here";
+				assert(0);
+#endif // SYNTAXDEBUG
+			}
 		}
 		case SymbolType::_mulop:
 		{
-
+			if (tmp.value == "*")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(9, tmp.row);
+				return yytokentype::MUL;
+			}
+			else if (tmp.value == "/")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(10, tmp.row);
+				return yytokentype::DIV;
+			}
+			else if (tmp.value == "div")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(11, tmp.row);
+				return yytokentype::IDIV;
+			}
+			else if(tmp.value=="mod")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(12, tmp.row);
+				return yytokentype::MOD;
+			}
+			else if (tmp.value == "and")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(13, tmp.row);
+				return yytokentype::AND;
+			}
+			else
+			{
+#ifdef SYNTAXDEBUG
+				cout << __FILE__ + __LINE__ << "Should not reach here";
+				assert(0);
+#endif // SYNTAXDEBUG
+			}
 		}
 		case SymbolType::_addop:
 		{
@@ -111,7 +218,8 @@ int yylex(void)
 			else
 			{
 #ifdef SYNTAXDEBUG
-				assert(__FILE__ + __LINE__ + "Should not reach here");
+				cout << __FILE__ + __LINE__ << "Should not reach here";
+				assert(0);
 #endif // SYNTAXDEBUG
 			}
 		}
@@ -120,8 +228,18 @@ int yylex(void)
 			yylval.b = new SyntaxTreeNodeOperator(14, tmp.row);
 			return yytokentype::EQU;
 		}
+		case SymbolType::_dotdot:
+		{
+			return yytokentype::DOTDOT;
+		}
 		default:
+		{
+#ifdef SYNTAXDEBUG
+			cout << __FILE__ + __LINE__ << "Should not reach here";
+			assert(0);
+#endif // SYNTAXDEBUG
 			break;
+		}
 		}
 	}
 	return 0;

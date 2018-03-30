@@ -24,14 +24,14 @@
 //		    =   <>     >      >=      <    <=
 %token <b> EQU NEQU GRETTER EGRETTER LESS ELESS
 
-//		    +   -   *    /  //  and  or  mod
+//		    +   -   *    /  div and  or  mod
 %token <b> ADD SUB MUL DIV IDIV AND  OR  MOD
 
 %token <c> NUM ID
 
-%token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR 
+%token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR DOTDOT
 
-%type <a> programstruct program_head program_body const_declarations const_declaration const_value
+%type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period
  
 %%
  
@@ -40,35 +40,78 @@
  
 // place your YACC rules here (there must be at least one)
 
-programstruct : program_head ';' program_body '.'{$$ = MakeNode(1,{$1,$3});rt=$$;}
+programstruct : program_head ';' program_body '.'
+	{$$ = MakeNode(1,{$1,$3});rt=$$;}
 
-program_head : PROGRAM ID {$$=MakeNode(2,{$2});}
+program_head : PROGRAM ID 
+	{$$=MakeNode(2,{$2});}
 
-program_body : const_declarations /*var_declarations subprogram_declarations compound_statement*/ {$$=MakeNode(3,{$1,NULL,NULL,NULL}/*,$2,$3,$4}*/);}
+program_body : const_declarations var_declarations /*subprogram_declarations compound_statement*/ 
+	{$$=MakeNode(3,{$1,$2,NULL,NULL}/*,$3,$4}*/);}
 
-const_declarations : CONST const_declaration {$$=MakeNode(4,{$2});}
-const_declarations : {$$=NULL;}
-const_declaration : const_declaration ';' ID '=' const_value{$$=MakeNode(6,{$1,$3,$5});}
-const_declaration : ID '=' const_value {$$=MakeNode(7,{$1,$3});}
-const_value : '+' NUM {$$=MakeNode(8,{$2});}
-const_value : '-' NUM {$$=MakeNode(9,{$2});}
-const_value : NUM {$$=MakeNode(10,{$1});}
+const_declarations : CONST const_declaration ';'
+	{$$=MakeNode(4,{$2});}
 
+const_declarations : 
+	{$$=MakeNode(5,{});}
+
+const_declaration : const_declaration ';' ID EQU const_value
+	{$$=MakeNode(6,	{$1,$3,$5});}
+
+const_declaration : ID EQU const_value 
+	{$$=MakeNode(7,	{$1,$3});}
+
+const_value : ADD NUM 
+	{$$=MakeNode(8,{$2});}//语义分析做类型检查
+
+const_value : SUB NUM 
+	{$$=MakeNode(9,{$2});}//语义分析做类型检查
+
+const_value : NUM 
+	{$$=MakeNode(10,{$1});}//语义分析做类型检查
+
+var_declarations : VAR var_declaration ';'
+	{$$=MakeNode(11,{$2});}
+
+var_declarations : 
+	{$$=MakeNode(12,{});}
+
+var_declaration : var_declaration ';' idlist ':' type
+	{$$=MakeNode(13,{$1,$3,$5});}
+
+var_declaration : idlist ':' type
+	{$$=MakeNode(14,{$1,$3});}
+
+idlist : idlist ',' ID
+	{$$=MakeNode(15,{$1,$3});}
+
+idlist : ID
+	{$$=MakeNode(16,{$1});}
+
+type : simple_type
+	{$$=MakeNode(17,{$1});}
+
+type : ARRAY '[' period ']' OF simple_type
+	{$$=MakeNode(18,{$3,$6});}
+
+simple_type : INTEGER
+	{$$=MakeNode(19,{});}
+
+simple_type : REAL
+	{$$=MakeNode(20,{});}
+
+simple_type : BOOLEAN
+	{$$=MakeNode(21,{});}
+
+simple_type : CHAR
+	{$$=MakeNode(22,{});}
+
+period : period ',' NUM DOTDOT NUM //语义分析做类型检查
+	{$$=MakeNode(23,{$1,$3,$5});}
+
+period : NUM DOTDOT NUM //语义分析做类型检查
+	{$$=MakeNode(24,{$1,$3});}
 /*
-var_declarations -> var var_declaration ;
-var_declarations -> epsilon
-var_declaration -> var_declaration ; idlist : type
-var_declaration -> idlist : type
-idlist -> idlist , id
-idlist -> id
-type->simple_type
-type->array [ period ] of simple_type
-simple_type->integer
-simple_type -> real
-simple_type -> boolean
-simple_type -> char
-period -> period, digits .. digits
-period -> digits .. digits
 subprogram_declarations -> subprogram_declarations subprogram ;
 subprogram_declarations -> epsilon
 subprogram -> subprogram_head ; subprogram_body

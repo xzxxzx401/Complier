@@ -20,7 +20,7 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		assert(args.size() == 2);
 		auto tmp = args.begin();
 		auto ttmp = tmp; ttmp++;
-		return new SyntaxTreeNodeTypeA(1, *tmp, *ttmp);
+		return new SyntaxTreeNodeTypeA(type, *tmp, *ttmp);
 	}
 	case 2:
 	case 8:
@@ -32,7 +32,9 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 	{
 		assert(args.size() == 1);
 		auto tmp = args.begin();
-		return new SyntaxTreeNodeTypeB(2, dynamic_cast<SyntaxTreeNodeFinal*>(*tmp));
+		SyntaxTreeNodeFinal* ttmp = dynamic_cast<SyntaxTreeNodeFinal*>(*tmp);
+		assert(ttmp != nullptr);
+		return new SyntaxTreeNodeTypeB(type, ttmp);
 	}
 	case 3:
 	{
@@ -40,7 +42,7 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[4]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeC(3, args_[0], args_[1], args_[2], args_[3]);
+		return new SyntaxTreeNodeTypeC(type, args_[0], args_[1], args_[2], args_[3]);
 	}
 	case 4:
 	case 11:
@@ -69,7 +71,7 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[1]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeD(4, args_[0]);
+		return new SyntaxTreeNodeTypeD(type, args_[0]);
 	}
 	case 5:
 	case 12:
@@ -84,25 +86,43 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 	case 22:
 	{
 		assert(args.size() == 0);
-		return new SyntaxTreeNodeTypeE(5);
+		return new SyntaxTreeNodeTypeE(type);
 	}
 	case 6:
+	{
+		assert(args.size() == 3);
+		SyntaxTreeNode* args_[3]; int i = 0;
+		for (auto k = args.begin(); k != args.end(); k++)
+			args_[i++] = *k;
+		SyntaxTreeNodeFinal* carg1 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[1]);
+		assert(carg1 != nullptr);
+
+		return new SyntaxTreeNodeTypeN(type, args_[0], carg1, args_[2]);
+	}
 	case 23:
 	{
 		assert(args.size() == 3);
 		SyntaxTreeNode* args_[3]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeF(6, args_[0], dynamic_cast<SyntaxTreeNodeFinal*>(args_[1]), dynamic_cast<SyntaxTreeNodeFinal*>(args_[2]));
+		SyntaxTreeNodeFinal* carg1 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[1]);
+		SyntaxTreeNodeFinal* carg2 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[2]);
+		assert(carg1 != nullptr&&carg2 != nullptr);
+
+		return new SyntaxTreeNodeTypeF(type, args_[0], carg1, carg2);
 	}
-	case 7:
 	case 24:
 	{
 		assert(args.size() == 2);
 		SyntaxTreeNode* args_[2]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeG(7, dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]), dynamic_cast<SyntaxTreeNodeFinal*> (args_[1]));
+
+		SyntaxTreeNodeFinal* carg0 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]);
+		SyntaxTreeNodeFinal* carg1 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[1]);
+		assert(carg0 != nullptr&&carg1 != nullptr);
+
+		return new SyntaxTreeNodeTypeG(type, carg0, carg1);
 	}
 	case 13:
 	case 38:
@@ -112,7 +132,7 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[3]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeH(8, args_[0], args_[1], args_[2]);
+		return new SyntaxTreeNodeTypeH(type, args_[0], args_[1], args_[2]);
 	}
 	case 15:
 	{
@@ -120,8 +140,14 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[2]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeI(9, args_[0], dynamic_cast<SyntaxTreeNodeFinal*> (args_[1]));
+
+		SyntaxTreeNodeFinal* carg1 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[1]);
+
+		assert(carg1 != nullptr);
+
+		return new SyntaxTreeNodeTypeI(type, args_[0], carg1);
 	}
+	case 7:
 	case 28:
 	case 48:
 	case 52:
@@ -131,7 +157,11 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[2]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeJ(10, dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]), args_[1]);
+
+		SyntaxTreeNodeFinal* carg0 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]);
+
+		assert(carg0 != nullptr);
+		return new SyntaxTreeNodeTypeJ(type, carg0, args_[1]);
 	}
 	case 29:
 	{
@@ -139,7 +169,12 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[3]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeK(11, dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]), args_[1], args_[2]);
+
+		SyntaxTreeNodeFinal* carg0 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]);
+
+		assert(carg0 != nullptr);
+
+		return new SyntaxTreeNodeTypeK(type, carg0, args_[1], args_[2]);
 	}
 	case 42:
 	case 57:
@@ -150,7 +185,12 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[3]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeL(12, args_[0], dynamic_cast<SyntaxTreeNodeOperator*> (args_[1]), args_[2]);
+
+		SyntaxTreeNodeOperator* carg1 = dynamic_cast<SyntaxTreeNodeOperator*>(args_[1]);
+
+		assert(carg1 != nullptr);
+
+		return new SyntaxTreeNodeTypeL(type, args_[0], carg1, args_[2]);
 	}
 	case 46:
 	{
@@ -158,7 +198,12 @@ SyntaxTreeNode * MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args)
 		SyntaxTreeNode* args_[5]; int i = 0;
 		for (auto k = args.begin(); k != args.end(); k++)
 			args_[i++] = *k;
-		return new SyntaxTreeNodeTypeM(13, dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]), dynamic_cast<SyntaxTreeNodeOperator*> (args_[1]), args_[2], args_[3], args_[4]);
+
+		SyntaxTreeNodeFinal* carg0 = dynamic_cast<SyntaxTreeNodeFinal*>(args_[0]);
+		SyntaxTreeNodeOperator* carg1 = dynamic_cast<SyntaxTreeNodeOperator*>(args_[1]);
+		assert(carg1 != nullptr&&carg0 != nullptr);
+
+		return new SyntaxTreeNodeTypeM(type, carg0, carg1, args_[2], args_[3], args_[4]);
 	}
 	default:
 		break;
@@ -205,9 +250,9 @@ SyntaxTreeNodeFinal * MakeLeaf(char val, int linenum)
 	return new SyntaxTreeNodeFinal(4, tmp, linenum);
 }
 
-SyntaxTreeNodeOperator * MakeOperator(int opnum)
+SyntaxTreeNodeOperator * MakeOperator(int opnum, int linenum)
 {
-	return new SyntaxTreeNodeOperator(opnum);
+	return new SyntaxTreeNodeOperator(opnum, linenum);
 }
 
 #include<iostream>
@@ -221,6 +266,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 0:
 	{
 		const SyntaxTreeNodeFinal* tmp = dynamic_cast<const SyntaxTreeNodeFinal*>(rt);
+		assert(tmp != nullptr);
 		switch (tmp->GetType())
 		{
 		case 0:
@@ -267,6 +313,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 55:
 	{
 		const SyntaxTreeNodeTypeA* tmp = dynamic_cast<const SyntaxTreeNodeTypeA*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -282,6 +329,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 63:
 	{
 		const SyntaxTreeNodeTypeB* tmp = dynamic_cast<const SyntaxTreeNodeTypeB*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -290,6 +338,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 3:
 	{
 		const SyntaxTreeNodeTypeC* tmp = dynamic_cast<const SyntaxTreeNodeTypeC*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -322,6 +371,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 68:
 	{
 		const SyntaxTreeNodeTypeD* tmp = dynamic_cast<const SyntaxTreeNodeTypeD*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -340,14 +390,15 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 22:
 	{
 		const SyntaxTreeNodeTypeE* tmp = dynamic_cast<const SyntaxTreeNodeTypeE*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		break;
 	}
-	case 6:
 	case 23:
 	{
 		const SyntaxTreeNodeTypeF* tmp = dynamic_cast<const SyntaxTreeNodeTypeF*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -355,10 +406,21 @@ void trans(const SyntaxTreeNode* rt, int lev)
 		trans(tmp->Third(), lev + 1);
 		break;
 	}
-	case 7:
+	case 6:
+	{
+		const SyntaxTreeNodeTypeN* tmp = dynamic_cast<const SyntaxTreeNodeTypeN*> (rt);
+		assert(tmp != nullptr);
+		printTab(lev);
+		std::cout << tmp->GetType() << std::endl;
+		trans(tmp->First(), lev + 1);
+		trans(tmp->Second(), lev + 1);
+		trans(tmp->Third(), lev + 1);
+		break;
+	}
 	case 24:
 	{
 		const SyntaxTreeNodeTypeG* tmp = dynamic_cast<const SyntaxTreeNodeTypeG*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -370,6 +432,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 45:
 	{
 		const SyntaxTreeNodeTypeH* tmp = dynamic_cast<const SyntaxTreeNodeTypeH*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -380,18 +443,21 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 15:
 	{
 		const SyntaxTreeNodeTypeI* tmp = dynamic_cast<const SyntaxTreeNodeTypeI*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
 		trans(tmp->Second(), lev + 1);
 		break;
 	}
+	case 7:
 	case 28:
 	case 48:
 	case 52:
 	case 65:
 	{
 		const SyntaxTreeNodeTypeJ* tmp = dynamic_cast<const SyntaxTreeNodeTypeJ*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -401,6 +467,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 29:
 	{
 		const SyntaxTreeNodeTypeK* tmp = dynamic_cast<const SyntaxTreeNodeTypeK*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -414,6 +481,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 61:
 	{
 		const SyntaxTreeNodeTypeL* tmp = dynamic_cast<const SyntaxTreeNodeTypeL*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);
@@ -424,6 +492,7 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 46:
 	{
 		const SyntaxTreeNodeTypeM* tmp = dynamic_cast<const SyntaxTreeNodeTypeM*> (rt);
+		assert(tmp != nullptr);
 		printTab(lev);
 		std::cout << tmp->GetType() << std::endl;
 		trans(tmp->First(), lev + 1);

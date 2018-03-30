@@ -14,13 +14,16 @@ using namespace std;
 //}
 string inputFileName;
 SyntaxTreeNode *rt;
+extern int yydebug;
 int main(void)
 {
+	yydebug = 1;
 	inputFileName = "test.pas";
 	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
 
 	trans(rt, 0);
 
+	delete rt;
 	system("PAUSE");
 	return 0;
 }

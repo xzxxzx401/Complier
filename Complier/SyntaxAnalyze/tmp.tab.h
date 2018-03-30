@@ -29,8 +29,8 @@
    
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
-#include"..\SyntaxTree\SyntaxTreeNodeType.h"
 
+#include"..\SyntaxTree\SyntaxTreeNodeType.h"
 #ifndef YY_YY_TMP_TAB_H_INCLUDED
 # define YY_YY_TMP_TAB_H_INCLUDED
 /* Enabling traces.  */
@@ -81,7 +81,8 @@ extern int yydebug;
      INTEGER = 289,
      BOOLEAN = 290,
      REAL = 291,
-     CHAR = 292
+     CHAR = 292,
+     DOTDOT = 293
    };
 #endif
 
@@ -98,7 +99,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 101 "tmp.tab.h"
+#line 102 "tmp.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
