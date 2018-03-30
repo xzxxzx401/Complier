@@ -175,7 +175,7 @@ void InputBuffer::fillBuffer(void)
 		}
 		else
 		{
-			#if _DEBUG_==1
+			#if LEXDEBUG==2
 			cout << "DEBUG in InputBuffer::fillBuffer => num of ch is "
 				<< (int)ch << endl;
 			#endif // _DEBUG_

@@ -12,7 +12,7 @@ int yylex(void)
 {
 	static Lexer lexer(inputFileName);
 	//starting analyse
-	
+
 	static LetterTriple tmp("", 0, 0);
 	tmp = lexer.getTriple();
 	if (tmp.value == "")
@@ -75,6 +75,47 @@ int yylex(void)
 		case SymbolType::_delimiter:
 		{
 			return tmp.value[0];
+		}
+		case SymbolType::_integer:
+		{
+			SyntaxTreeNodeFinalValue val;
+			val.intValue = stoi(tmp.value);
+			yylval.c = new SyntaxTreeNodeFinal(1, val, yylinenum);
+			return yytokentype::NUM;
+		}
+		case SymbolType::_relop:
+		{
+
+		}
+		case SymbolType::_mulop:
+		{
+
+		}
+		case SymbolType::_addop:
+		{
+			if (tmp.value == "+")
+			{
+
+			}
+			else if (tmp.value == "-")
+			{
+
+			}
+			else if (tmp.value == "or")
+			{
+
+			}
+			else
+			{
+#ifdef SYNTAXDEBUG
+				assert(__FILE__ + __LINE__ + "Should not reach here");
+#endif // SYNTAXDEBUG
+			}
+		}
+		case SymbolType::_assignop:
+		{
+			yylval.b = new SyntaxTreeNodeOperator(14);
+			return yytokentype::EQU;
 		}
 		default:
 			break;

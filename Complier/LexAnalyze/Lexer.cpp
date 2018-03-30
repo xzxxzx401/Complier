@@ -8,8 +8,6 @@ void __toLower(string &str)
 		if (str[i] <= 'Z'&&str[i] >= 'A') str[i] += 32;
 }
 
-
-
 Lexer::Lexer()
 {
 	curLine = 1;
@@ -93,7 +91,7 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 				break;
 
 			default:
-				#if _DEBUG_==1
+				#if LEXDEBUG==1
 
 				cout << "An unknown char has been input! ASCII is " 
 					<< (int)ch << endl;
@@ -330,7 +328,7 @@ Type Lexer::judgeNum(char ch, InputBuffer &inBuf)
 				break;
 
 			default:
-				#if _DEBUG_==1
+				#if LEXDEBUG==1
 
 				cout << "Wrong state in judgeNum.(state is:" << state << ")" << endl;
 
@@ -392,7 +390,7 @@ Type Lexer::judgeID(char ch, InputBuffer &inBuf)
 				break;
 
 			default:
-				#if _DEBUG_==1
+				#if LEXDEBUG==1
 
 				cout << "Wrong state in judgeID.(state is:" << state << ")" << endl;
 
@@ -590,7 +588,7 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 
 			default:
 
-				#if _DEBUG_==1
+				#if LEXDEBUG==1
 
 					cout << "Wrong state in judgePunc.(state is:" << state << ")" << endl;
 
@@ -667,7 +665,7 @@ void Lexer::printErrorInfo(const Type &type)
 
 void Lexer::printStatistics(void)
 {
-	#if _DEBUG_==1
+	#if LEXDEBUG==1
 
 	cout << "\n\n==========================" << endl;
 	cout << "Lexical analysis finish!" << endl;
@@ -675,7 +673,7 @@ void Lexer::printStatistics(void)
 	cout << curWord << " words, " << curLine << " line(s)." << endl;
 	cout << "==========================" << endl;
 
-	#endif//_DEBUG_
+	#endif//LEXDEBUG
 }
 
 LetterTriple Lexer::getTriple(void)

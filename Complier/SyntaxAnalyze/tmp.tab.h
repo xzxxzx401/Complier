@@ -30,6 +30,7 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 #include"..\SyntaxTree\SyntaxTreeNodeType.h"
+
 #ifndef YY_YY_TMP_TAB_H_INCLUDED
 # define YY_YY_TMP_TAB_H_INCLUDED
 /* Enabling traces.  */
@@ -46,28 +47,41 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUM = 258,
-     ID = 259,
-     OP = 260,
-     PROGRAM = 261,
-     CONST = 262,
-     VAR = 263,
-     PROCEDURE = 264,
-     FUNCTION = 265,
-     BEGIN = 266,
-     END = 267,
-     ARRAY = 268,
-     OF = 269,
-     IF = 270,
-     THEN = 271,
-     ELSE = 272,
-     FOR = 273,
-     TO = 274,
-     DO = 275,
-     INTEGER = 276,
-     BOOLEAN = 277,
-     REAL = 278,
-     CHAR = 279
+     EQU = 258,
+     NEQU = 259,
+     GRETTER = 260,
+     EGRETTER = 261,
+     LESS = 262,
+     ELESS = 263,
+     ADD = 264,
+     SUB = 265,
+     MUL = 266,
+     DIV = 267,
+     IDIV = 268,
+     AND = 269,
+     OR = 270,
+     MOD = 271,
+     NUM = 272,
+     ID = 273,
+     PROGRAM = 274,
+     CONST = 275,
+     VAR = 276,
+     PROCEDURE = 277,
+     FUNCTION = 278,
+     BEGIN = 279,
+     END = 280,
+     ARRAY = 281,
+     OF = 282,
+     IF = 283,
+     THEN = 284,
+     ELSE = 285,
+     FOR = 286,
+     TO = 287,
+     DO = 288,
+     INTEGER = 289,
+     BOOLEAN = 290,
+     REAL = 291,
+     CHAR = 292
    };
 #endif
 
@@ -84,7 +98,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 88 "tmp.tab.h"
+#line 101 "tmp.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

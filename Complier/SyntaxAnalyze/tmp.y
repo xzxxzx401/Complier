@@ -20,9 +20,17 @@
 	SyntaxTreeNodeOperator *b;
 	SyntaxTreeNodeFinal *c;
 }
+
+//		    =   <>     >      >=      <    <=
+%token <b> EQU NEQU GRETTER EGRETTER LESS ELESS
+
+//		    +   -   *    /  //  and  or  mod
+%token <b> ADD SUB MUL DIV IDIV AND  OR  MOD
+
 %token <c> NUM ID
-%token <b> OP
+
 %token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR 
+
 %type <a> programstruct program_head program_body const_declarations const_declaration const_value
  
 %%
