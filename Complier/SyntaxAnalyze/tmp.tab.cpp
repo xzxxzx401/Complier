@@ -74,9 +74,10 @@
 	extern int yylex(void);
 	extern int yylinenum;
 	extern int yyval;
+	extern SyntaxTreeNode *rt;
 
 /* Line 371 of yacc.c  */
-#line 80 "tmp.tab.cpp"
+#line 81 "tmp.tab.cpp"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -142,7 +143,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 17 "tmp.y"
+#line 18 "tmp.y"
 
 	SyntaxTreeNode *a;
 	SyntaxTreeNodeOperator *b;
@@ -150,7 +151,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 154 "tmp.tab.cpp"
+#line 155 "tmp.tab.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -178,7 +179,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 182 "tmp.tab.cpp"
+#line 183 "tmp.tab.cpp"
 
 #ifdef short
 # undef short
@@ -470,8 +471,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    36,    38,    40,    41,    42,    43,    44,
-      45,    46
+       0,    35,    35,    37,    39,    41,    42,    43,    44,    45,
+      46,    47
 };
 #endif
 
@@ -798,7 +799,7 @@ do {					\
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
    multiple parsers can coexist.  */
-int yydebug=1;
+int yydebug;
 #else /* !YYDEBUG */
 # define YYDPRINTF(Args)
 # define YY_SYMBOL_PRINT(Title, Type, Value, Location)
@@ -1378,67 +1379,67 @@ yyreduce:
     {
         case 2:
 /* Line 1792 of yacc.c  */
-#line 34 "tmp.y"
-    {(yyval.a) = MakeNode(1,{(yyvsp[(1) - (4)].a),(yyvsp[(3) - (4)].a)});}
+#line 35 "tmp.y"
+    {(yyval.a) = MakeNode(1,{(yyvsp[(1) - (4)].a),(yyvsp[(3) - (4)].a)});rt=(yyval.a);}
     break;
 
   case 3:
 /* Line 1792 of yacc.c  */
-#line 36 "tmp.y"
+#line 37 "tmp.y"
     {(yyval.a)=MakeNode(2,{(yyvsp[(2) - (2)].c)});}
     break;
 
   case 4:
 /* Line 1792 of yacc.c  */
-#line 38 "tmp.y"
+#line 39 "tmp.y"
     {(yyval.a)=MakeNode(3,{(yyvsp[(1) - (1)].a),NULL,NULL,NULL}/*,$2,$3,$4}*/);}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 40 "tmp.y"
+#line 41 "tmp.y"
     {(yyval.a)=MakeNode(4,{(yyvsp[(2) - (2)].a)});}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 41 "tmp.y"
+#line 42 "tmp.y"
     {(yyval.a)=NULL;}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 42 "tmp.y"
+#line 43 "tmp.y"
     {(yyval.a)=MakeNode(6,{(yyvsp[(1) - (5)].a),(yyvsp[(3) - (5)].c),(yyvsp[(5) - (5)].a)});}
     break;
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 43 "tmp.y"
+#line 44 "tmp.y"
     {(yyval.a)=MakeNode(7,{(yyvsp[(1) - (3)].c),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 44 "tmp.y"
+#line 45 "tmp.y"
     {(yyval.a)=MakeNode(8,{(yyvsp[(2) - (2)].c)});}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 45 "tmp.y"
+#line 46 "tmp.y"
     {(yyval.a)=MakeNode(9,{(yyvsp[(2) - (2)].c)});}
     break;
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 46 "tmp.y"
+#line 47 "tmp.y"
     {(yyval.a)=MakeNode(10,{(yyvsp[(1) - (1)].c)});}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1442 "tmp.tab.cpp"
+#line 1443 "tmp.tab.cpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1670,7 +1671,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 108 "tmp.y"
+#line 109 "tmp.y"
 
  
 /////////////////////////////////////////////////////////////////////////////

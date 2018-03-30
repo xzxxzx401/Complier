@@ -214,6 +214,7 @@ SyntaxTreeNodeOperator * MakeOperator(int opnum)
 void printTab(int lev) { while (lev--) std::cout << '\t'; }
 void trans(const SyntaxTreeNode* rt, int lev)
 {
+	if (rt == nullptr) return;
 	int type = rt->GetType();
 	switch (type)
 	{

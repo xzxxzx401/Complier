@@ -13,10 +13,13 @@ using namespace std;
 //	return 0;
 //}
 string inputFileName;
+SyntaxTreeNode *rt;
 int main(void)
 {
 	inputFileName = "test.pas";
 	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
+
+	trans(rt, 0);
 
 	system("PAUSE");
 	return 0;

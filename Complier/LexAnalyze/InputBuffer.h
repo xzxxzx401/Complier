@@ -5,9 +5,11 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 #define BUF_LEN 256
 #define default_file_name "test.pas"
-//#define DEBUG
+#define _DEBUG_ 0
 
 class InputBuffer
 {
@@ -18,14 +20,14 @@ private:
 	bool isFront;//if first half buffer was the last filled one
 	bool isBPInFront;//if the bufferPtr in the first half buffer
 	bool isFileExist;
-	std::string fileName;
+	string fileName;
 
 	void fillBuffer(void);
 
 public:
 	InputBuffer(void);
 
-	InputBuffer(const std::string&);
+	InputBuffer(const string&);
 
 	char getchar(void);
 

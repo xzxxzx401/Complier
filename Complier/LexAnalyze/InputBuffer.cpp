@@ -1,7 +1,7 @@
 #include "InputBuffer.h"
 
 //set file name with str
-InputBuffer::InputBuffer(const std::string &str)
+InputBuffer::InputBuffer(const string &str)
 {
 	//init all argument
 	fileName = str;
@@ -145,7 +145,7 @@ void InputBuffer::fillBuffer(void)
 	}
 
 	char ch;
-	std::ifstream inFile(fileName, std::ios::in | std::ios::binary);
+	ifstream inFile(fileName, ios::in | ios::binary);
 
 	//if file not exist, exit this function
 	if (!inFile.is_open())
@@ -155,7 +155,7 @@ void InputBuffer::fillBuffer(void)
 	}
 
 	//move file pointer to the position of last reading
-	inFile.seekg(curFilePos, std::ios::beg);
+	inFile.seekg(curFilePos, ios::beg);
 
 	//getting data from file
 	bool exitCode = true;
@@ -175,10 +175,10 @@ void InputBuffer::fillBuffer(void)
 		}
 		else
 		{
-			#ifdef DEBUG
+			#if _DEBUG_==1
 			cout << "DEBUG in InputBuffer::fillBuffer => num of ch is "
 				<< (int)ch << endl;
-			#endif // DEBUG
+			#endif // _DEBUG_
 		}
 
 		//put the char into the buffer

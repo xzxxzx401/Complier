@@ -19,6 +19,39 @@ Lexer::Lexer()
 	errorNum = 0;
 
 	curPtrInList = 0;
+
+	inbuf = InputBuffer(default_file_name);
+
+	if (inbuf.getFileState())
+	{
+		lexicalAnalyse(inbuf);
+	}
+	else
+	{
+		cout << "File not exist!" << endl;
+	}
+}
+
+Lexer::Lexer(const string &file)
+{
+	curLine = 1;
+	curCol = 1;
+	curChar = 0;
+	curWord = 0;
+	errorNum = 0;
+
+	curPtrInList = 0;
+
+	inbuf = InputBuffer(file);
+
+	if (inbuf.getFileState())
+	{
+		lexicalAnalyse(inbuf);
+	}
+	else
+	{
+		cout << "File not exist!" << endl;
+	}
 }
 
 void Lexer::lexicalAnalyse(InputBuffer &inBuf)
@@ -60,9 +93,11 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 				break;
 
 			default:
-				#ifdef DEBUG
+				#if _DEBUG_==1
+
 				cout << "An unknown char has been input! ASCII is " 
 					<< (int)ch << endl;
+
 				#endif
 
 				type = _error6;//err6:unknown char
@@ -295,7 +330,11 @@ Type Lexer::judgeNum(char ch, InputBuffer &inBuf)
 				break;
 
 			default:
+				#if _DEBUG_==1
+
 				cout << "Wrong state in judgeNum.(state is:" << state << ")" << endl;
+
+				#endif
 				break;
 		}
 
@@ -353,7 +392,11 @@ Type Lexer::judgeID(char ch, InputBuffer &inBuf)
 				break;
 
 			default:
+				#if _DEBUG_==1
+
 				cout << "Wrong state in judgeID.(state is:" << state << ")" << endl;
+
+				#endif
 				break;
 		}
 
@@ -546,7 +589,13 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 				break;
 
 			default:
-				cout << "Wrong state in judgePunc.(state is:" << state << ")" << endl;
+
+				#if _DEBUG_==1
+
+					cout << "Wrong state in judgePunc.(state is:" << state << ")" << endl;
+
+				#endif // _DEBUG_
+
 				break;
 		}
 
@@ -574,6 +623,7 @@ bool Lexer::isSign(const char &ch)
 
 void Lexer::printErrorInfo(const Type &type)
 {
+
 	cout << "< Error: In line " << curLine << ", col "
 		<< curCol << ":" << endl;
 	switch (type)
@@ -612,17 +662,20 @@ void Lexer::printErrorInfo(const Type &type)
 			cout << "Unknown error type!Type is " << type<<endl;
 			break;
 	}
+
 }
 
 void Lexer::printStatistics(void)
 {
-#ifdef LEXDEBUG
+	#if _DEBUG_==1
+
 	cout << "\n\n==========================" << endl;
 	cout << "Lexical analysis finish!" << endl;
 	cout << errorNum << " Error(s), " << curChar << " chars, " << endl;
 	cout << curWord << " words, " << curLine << " line(s)." << endl;
 	cout << "==========================" << endl;
-#endif // LEXDEBUG
+
+	#endif//_DEBUG_
 }
 
 LetterTriple Lexer::getTriple(void)

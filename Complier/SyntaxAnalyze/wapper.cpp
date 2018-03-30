@@ -10,17 +10,9 @@ extern string inputFileName;
 
 int yylex(void)
 {
-	static bool fl = 0;
-	static InputBuffer inputBuffer(inputFileName);
-	static Lexer lexer;
+	static Lexer lexer(inputFileName);
 	//starting analyse
-
-	if (fl == 0)
-	{
-		lexer.lexicalAnalyse(inputBuffer);
-		fl = 1;
-	}
-
+	
 	static LetterTriple tmp("", 0, 0);
 	tmp = lexer.getTriple();
 	if (tmp.value == "")

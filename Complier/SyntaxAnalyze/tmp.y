@@ -8,6 +8,7 @@
 	extern int yylex(void);
 	extern int yylinenum;
 	extern int yyval;
+	extern SyntaxTreeNode *rt;
 %}
  
 /////////////////////////////////////////////////////////////////////////////
@@ -31,7 +32,7 @@
  
 // place your YACC rules here (there must be at least one)
 
-programstruct : program_head ';' program_body '.'{$$ = MakeNode(1,{$1,$3});}
+programstruct : program_head ';' program_body '.'{$$ = MakeNode(1,{$1,$3});rt=$$;}
 
 program_head : PROGRAM ID {$$=MakeNode(2,{$2});}
 

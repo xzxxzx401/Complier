@@ -76,7 +76,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 17 "tmp.y"
+#line 18 "tmp.y"
 
 	SyntaxTreeNode *a;
 	SyntaxTreeNodeOperator *b;
