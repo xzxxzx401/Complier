@@ -11,6 +11,8 @@
 ///mulop	* /  div mod and
 ///			14
 ///assignop	:=
+///			15
+///notop	not
 
 #include "SyntaxTreeNode.h"
 class SyntaxTreeNodeOperator :
@@ -21,6 +23,7 @@ public:
 
 	virtual ~SyntaxTreeNodeOperator();
 	const int GetOp()const { return this->op; }
+	const int GetLineNum()const { return this->linenum; }
 private:
 	int op;
 	int linenum;

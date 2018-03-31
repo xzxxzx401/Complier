@@ -64,7 +64,7 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 	{
 		exitCode = false;
 	}
-	
+
 	while (exitCode)
 	{
 		//get the first char type and use it in the automata
@@ -73,34 +73,34 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 		//choose different way according to the first char type
 		switch (charType)
 		{
-			case _num:
-				type = judgeNum(ch, inBuf);
-				break;
+		case _num:
+			type = judgeNum(ch, inBuf);
+			break;
 
-			case _letter:
-				type = judgeID(ch, inBuf);
-				break;
+		case _letter:
+			type = judgeID(ch, inBuf);
+			break;
 
-			case _ignore:
-				inBuf.getchar();
-				type = 0;
-				break;
+		case _ignore:
+			inBuf.getchar();
+			type = 0;
+			break;
 
-			case _other:
-				type = judgePunc(ch, inBuf);
-				break;
+		case _other:
+			type = judgePunc(ch, inBuf);
+			break;
 
-			default:
-				#if LEXDEBUG==1
+		default:
+#if LEXDEBUG==1
 
-				cout << "An unknown char has been input! ASCII is " 
-					<< (int)ch << endl;
+			cout << "An unknown char has been input! ASCII is "
+				<< (int)ch << endl;
 
-				#endif
+#endif
 
-				type = _error6;//err6:unknown char
+			type = _error6;//err6:unknown char
 
-				break;
+			break;
 		}
 
 		if (type >= _error1)//error const number
@@ -128,7 +128,7 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 				while (0 != inBuf.getchar());
 			}
 		}
-		else if (type != 0)
+		else if (charType != _ignore)
 		{
 			//Output:<type,symbol>
 			string str = "";
@@ -137,7 +137,7 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 			while (ch != 0 && ch != EOF)
 			{
 				str += ch;
-				
+
 				//counting word and moving pointer
 				if (ch != ' ' && ch != '\n' && ch != '\t' && ch != '\r')
 				{
@@ -157,10 +157,10 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 				{
 					++curCol;
 				}
-				
+
 				ch = inBuf.getchar();
 			}
-			
+
 
 			//judge type is ID or keyword
 			if (type == _id)
@@ -198,11 +198,11 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 			}
 
 			//add to the list
-			if(type!=_note)
-			{ 
+			if (type != _note)
+			{
 				letterList.push_back(LetterTriple(str, type, curLine));
 			}
-			
+
 		}
 		else//charType is _ignore, moving pointer
 		{
@@ -267,73 +267,79 @@ Type Lexer::judgeNum(char ch, InputBuffer &inBuf)
 	{
 		switch (state)
 		{
-			case 0:
-				if (ch <= '9'&&ch >= '0')
-				{
-					state = 1;
-				}
-				state = state ? state : END_STATE;
-				break;
+		case 0:
+			if (ch <= '9'&&ch >= '0')
+			{
+				state = 1;
+			}
+			state = state ? state : END_STATE;
+			break;
 
-			case 1:
-				if (ch <= '9'&&ch >= '0')
-				{
-					state = 1;
-				}
-				else if (ch == '.')
-				{
-					state = 3;
-				}
-				else //ch = other
-				{
-					inBuf.moveBackFPtr(1);
-					isPeekable = false;
-					state = 2;
-				}
-				break;
+		case 1:
+			if (ch <= '9'&&ch >= '0')
+			{
+				state = 1;
+			}
+			else if (ch == '.')
+			{
+				state = 3;
+			}
+			else //ch = other
+			{
+				inBuf.moveBackFPtr(1);
+				isPeekable = false;
+				state = 2;
+			}
+			break;
 
-			case 2://End (_integer)
+		case 2://End (_integer)
+			state = END_STATE;
+			returnTypeCode = _integer;
+			break;
+
+		case 3:
+			if (ch <= '9'&&ch >= '0')
+			{
+				state = 4;
+			}
+			else if (ch == '.')
+			{
+				inBuf.moveBackFPtr(2);
+				isPeekable = false;
+				state = 2;
+			}
+			else //ch = other
+			{
 				state = END_STATE;
-				returnTypeCode = _integer;
-				break;
+				returnTypeCode = _error1;
+			}
+			break;
 
-			case 3:
-				if (ch <= '9'&&ch >= '0')
-				{
-					state = 4;
-				}
-				else //ch = other
-				{
-					state = END_STATE;
-					returnTypeCode = _error1;
-				}
-				break;
+		case 4:
+			if (ch <= '9'&&ch >= '0')
+			{
+				state = 4;
+			}
+			else //ch = other
+			{
+				inBuf.moveBackFPtr(1);
+				isPeekable = false;
+				state = 5;
+			}
+			break;
 
-			case 4:
-				if (ch <= '9'&&ch >= '0')
-				{
-					state = 4;
-				}
-				else //ch = other
-				{
-					inBuf.moveBackFPtr(1);
-					isPeekable = false;
-					state = 5;
-				}
-				break;
+		case 5://End (_real)
+			state = END_STATE;
+			returnTypeCode = _real;
+			break;
 
-			case 5://End (_real)
-				state = END_STATE;
-				returnTypeCode = _real;
-				break;
+		default:
+#if LEXDEBUG==1
 
-			default:
-				#if LEXDEBUG==1
+			cout << "Wrong state in judgeNum.(state is:" << state << ")" << endl;
 
-				cout << "Wrong state in judgeNum.(state is:" << state << ")" << endl;
-
-				#endif
-				break;
+#endif
+			break;
 		}
 
 		if (state != END_STATE && isPeekable)
@@ -359,43 +365,43 @@ Type Lexer::judgeID(char ch, InputBuffer &inBuf)
 	{
 		switch (state)
 		{
-			case 0://ch is a~z A~Z
-				if (_letter == judgeCharType(ch))
-				{
-					state = 6;
-				}
-				state = state ? state : END_STATE;
-				break;
+		case 0://ch is a~z A~Z
+			if (_letter == judgeCharType(ch))
+			{
+				state = 6;
+			}
+			state = state ? state : END_STATE;
+			break;
 
-			case 6:
-				typeOfCh = judgeCharType(ch);
-				if (typeOfCh == _num || typeOfCh == _letter)
-				{
-					state = 6;
-				}
-				else
-				{
-					//leave the extra char behind
-					inBuf.moveBackFPtr(1);
-					isPeekable = false;
-					state = 7;
-				}
-				break;
+		case 6:
+			typeOfCh = judgeCharType(ch);
+			if (typeOfCh == _num || typeOfCh == _letter)
+			{
+				state = 6;
+			}
+			else
+			{
+				//leave the extra char behind
+				inBuf.moveBackFPtr(1);
+				isPeekable = false;
+				state = 7;
+			}
+			break;
 
-			case 7://End (_id)
-				//judge is ID or keyword after quit function
-				returnTypeCode = _id;
+		case 7://End (_id)
+			   //judge is ID or keyword after quit function
+			returnTypeCode = _id;
 
-				state = END_STATE;
-				break;
+			state = END_STATE;
+			break;
 
-			default:
-				#if LEXDEBUG==1
+		default:
+#if LEXDEBUG==1
 
-				cout << "Wrong state in judgeID.(state is:" << state << ")" << endl;
+			cout << "Wrong state in judgeID.(state is:" << state << ")" << endl;
 
-				#endif
-				break;
+#endif
+			break;
 		}
 
 		if (state != END_STATE && isPeekable)
@@ -418,183 +424,183 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 	{
 		switch (state)
 		{
-			case 0:
-				for (int i = 0; i < NumOfOperHead; ++i)
+		case 0:
+			for (int i = 0; i < NumOfOperHead; ++i)
+			{
+				if (ch == signToState[0][i])
 				{
-					if (ch == signToState[0][i])
+					state = signToState[1][i];
+					if (i < NumOfEndState)
 					{
-						state = signToState[1][i];
-						if (i < NumOfEndState)
-						{
-							isPeekable = false;
-						}
+						isPeekable = false;
 					}
 				}
-				state = state ? state : END_STATE;
-				break;
+			}
+			state = state ? state : END_STATE;
+			break;
 
-			case 1://End (_delimiter)
+		case 1://End (_delimiter)
+			state = END_STATE;
+			returnTypeCode = _delimiter;
+			break;
+
+		case 2://End (_addop)
+			state = END_STATE;
+			returnTypeCode = _addop;
+			break;
+
+		case 3://End (_mulop)
+			state = END_STATE;
+			returnTypeCode = _mulop;
+			break;
+
+		case 4://End (_relop)
+			state = END_STATE;
+			returnTypeCode = _relop;
+			break;
+
+		case 5:
+			if (ch == '=' || ch == '>')
+			{
+				isPeekable = false;
+				state = 4;
+			}
+			else //ch = other
+			{
+				isPeekable = false;
+				inBuf.moveBackFPtr(1);
+				state = 4;
+			}
+			break;
+
+		case 6:
+			if (ch == '=')
+			{
+				isPeekable = false;
+				state = 4;
+			}
+			else //ch = other
+			{
+				isPeekable = false;
+				inBuf.moveBackFPtr(1);
+				state = 4;
+			}
+			break;
+
+		case 7:
+			if (ch == '=')
+			{
+				isPeekable = false;
+				state = 8;
+			}
+			else //ch = other
+			{
+				isPeekable = false;
+				inBuf.moveBackFPtr(1);
+				state = 1;
+			}
+			break;
+
+		case 8://End (_assignop)
+			returnTypeCode = _assignop;
+			state = END_STATE;
+			break;
+
+		case 9:
+			if (ch == '.')
+			{
+				isPeekable = false;
+				state = 10;
+			}
+			else //ch = other
+			{
+				isPeekable = false;
+				state = 1;
+			}
+			break;
+
+		case 10://End (_dotdot)
+			returnTypeCode = _dotdot;
+			state = END_STATE;
+			break;
+
+		case 11:
+			if (ch == '}')
+			{
+				isPeekable = false;
+				state = 12;
+			}
+			else if (ch == EOF)
+			{
+				returnTypeCode = _error4;
 				state = END_STATE;
-				returnTypeCode = _delimiter;
-				break;
+			}
+			else //ch = other
+			{
+				state = 11;
+			}
+			break;
 
-			case 2://End (_addop)
+		case 12://End (_note)
+			returnTypeCode = _note;
+			state = END_STATE;
+			break;
+
+		case 13:
+			if (ch == '\'')
+			{
+				state = 16;
+			}
+			else
+			{
+				state = 14;
+			}
+			break;
+
+		case 14:
+			if (ch == '\'')
+			{
+				isPeekable = false;
+				state = 15;
+			}
+			else //ch = other
+			{
+				returnTypeCode = _error3;
 				state = END_STATE;
-				returnTypeCode = _addop;
-				break;
+			}
+			break;
 
-			case 3://End (_mulop)
+		case 15://END (_char)
+			returnTypeCode = _char;
+			state = END_STATE;
+			break;
+
+		case 16:
+			if (ch == '\'')
+			{
+				state = 14;
+			}
+			else if (ch == EOF)
+			{
+				returnTypeCode = _error5;
 				state = END_STATE;
-				returnTypeCode = _mulop;
-				break;
-
-			case 4://End (_relop)
+			}
+			else //ch = other
+			{
+				returnTypeCode = _error2;
 				state = END_STATE;
-				returnTypeCode = _relop;
-				break;
+			}
+			break;
 
-			case 5:
-				if (ch == '=' || ch == '>')
-				{
-					isPeekable = false;
-					state = 4;
-				}
-				else //ch = other
-				{
-					isPeekable = false;
-					inBuf.moveBackFPtr(1);
-					state = 4;
-				}
-				break;
+		default:
 
-			case 6:
-				if (ch == '=')
-				{
-					isPeekable = false;
-					state = 4;
-				}
-				else //ch = other
-				{
-					isPeekable = false;
-					inBuf.moveBackFPtr(1);
-					state = 4;
-				}
-				break;
+#if LEXDEBUG==1
 
-			case 7:
-				if (ch == '=')
-				{
-					isPeekable = false;
-					state = 8;
-				}
-				else //ch = other
-				{
-					isPeekable = false;
-					inBuf.moveBackFPtr(1);
-					state = 1;
-				}
-				break;
+			cout << "Wrong state in judgePunc.(state is:" << state << ")" << endl;
 
-			case 8://End (_assignop)
-				returnTypeCode = _assignop;
-				state = END_STATE;
-				break;
+#endif // _DEBUG_
 
-			case 9:
-				if (ch == '.')
-				{
-					isPeekable = false;
-					state = 10;
-				}
-				else //ch = other
-				{
-					isPeekable = false;
-					state = 1;
-				}
-				break;
-
-			case 10://End (_dotdot)
-				returnTypeCode = _dotdot;
-				state = END_STATE;
-				break;
-
-			case 11:
-				if (ch == '}')
-				{
-					isPeekable = false;
-					state = 12;
-				}
-				else if (ch == EOF)
-				{
-					returnTypeCode = _error4;
-					state = END_STATE;
-				}
-				else //ch = other
-				{
-					state = 11;
-				}
-				break;
-
-			case 12://End (_note)
-				returnTypeCode = _note;
-				state = END_STATE;
-				break;
-
-			case 13:
-				if (ch == '\'')
-				{
-					state = 16;
-				}
-				else
-				{
-					state = 14;
-				}
-				break;
-
-			case 14:
-				if (ch == '\'')
-				{
-					isPeekable = false;
-					state = 15;
-				}
-				else //ch = other
-				{
-					returnTypeCode = _error3;
-					state = END_STATE;
-				}
-				break;
-
-			case 15://END (_char)
-				returnTypeCode = _char;
-				state = END_STATE;
-				break;
-
-			case 16:
-				if (ch == '\'')
-				{
-					state = 14;
-				}
-				else if (ch == EOF)
-				{
-					returnTypeCode = _error5;
-					state = END_STATE;
-				}
-				else //ch = other
-				{
-					returnTypeCode = _error2;
-					state = END_STATE;
-				}
-				break;
-
-			default:
-
-				#if LEXDEBUG==1
-
-					cout << "Wrong state in judgePunc.(state is:" << state << ")" << endl;
-
-				#endif // _DEBUG_
-
-				break;
+			break;
 		}
 
 		if (state != END_STATE && isPeekable)
@@ -626,46 +632,46 @@ void Lexer::printErrorInfo(const Type &type)
 		<< curCol << ":" << endl;
 	switch (type)
 	{
-		case _error1:
-			cout << "  err1:err1:error const number" 
-				<< " >" << endl;
-			break;
+	case _error1:
+		cout << "  err1:err1:error const number"
+			<< " >" << endl;
+		break;
 
-		case _error2:
-			cout << "  err2:emypy char"
-				<< " >" << endl;
-			break;
+	case _error2:
+		cout << "  err2:emypy char"
+			<< " >" << endl;
+		break;
 
-		case _error3:
-			cout << "  err3:char is too long"
-				<< " >" << endl;
-			break;
+	case _error3:
+		cout << "  err3:char is too long"
+			<< " >" << endl;
+		break;
 
-		case _error4:
-			cout << "  err4:annotation is not closed"
-				<< " >" << endl;
-			break;
+	case _error4:
+		cout << "  err4:annotation is not closed"
+			<< " >" << endl;
+		break;
 
-		case _error5:
-			cout << "  err5:single quotes is not closed"
-				<< " >" << endl;
-			break;
+	case _error5:
+		cout << "  err5:single quotes is not closed"
+			<< " >" << endl;
+		break;
 
-		case _error6:
-			cout << "  err6:unknown char"
-				<< " >" << endl;
-			break;
+	case _error6:
+		cout << "  err6:unknown char"
+			<< " >" << endl;
+		break;
 
-		default:
-			cout << "Unknown error type!Type is " << type<<endl;
-			break;
+	default:
+		cout << "Unknown error type!Type is " << type << endl;
+		break;
 	}
 
 }
 
 void Lexer::printStatistics(void)
 {
-	#if LEXDEBUG==1
+#ifdef LEXDEBUG
 
 	cout << "\n\n==========================" << endl;
 	cout << "Lexical analysis finish!" << endl;
@@ -673,7 +679,7 @@ void Lexer::printStatistics(void)
 	cout << curWord << " words, " << curLine << " line(s)." << endl;
 	cout << "==========================" << endl;
 
-	#endif//LEXDEBUG
+#endif//LEXDEBUG
 }
 
 LetterTriple Lexer::getTriple(void)

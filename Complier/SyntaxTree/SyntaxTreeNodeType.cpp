@@ -256,7 +256,13 @@ SyntaxTreeNodeOperator * MakeOperator(int opnum, int linenum)
 }
 
 #include<iostream>
-void printTab(int lev) { while (lev--) std::cout << '\t'; }
+void printTab(int lev)
+{
+	int tlev = lev;
+	while (lev-- > 1)
+		std::cout << "|     ";
+	if (tlev) std::cout << "|-----";
+}
 void trans(const SyntaxTreeNode* rt, int lev)
 {
 	if (rt == nullptr) return;
@@ -266,7 +272,14 @@ void trans(const SyntaxTreeNode* rt, int lev)
 	case 0:
 	{
 		const SyntaxTreeNodeFinal* tmp = dynamic_cast<const SyntaxTreeNodeFinal*>(rt);
-		assert(tmp != nullptr);
+		if (tmp == nullptr)
+		{
+			const SyntaxTreeNodeOperator* ttmp = dynamic_cast<const SyntaxTreeNodeOperator*>(rt);
+			assert(ttmp != nullptr);
+			printTab(lev);
+			std::cout << "[" << ttmp->GetLineNum() << "]" << "Operator:" << ttmp->GetOp() << std::endl;
+			break;
+		}
 		switch (tmp->GetType())
 		{
 		case 0:

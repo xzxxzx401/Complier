@@ -53,36 +53,38 @@ extern int yydebug;
      EGRETTER = 261,
      LESS = 262,
      ELESS = 263,
-     ADD = 264,
-     SUB = 265,
-     MUL = 266,
-     DIV = 267,
-     IDIV = 268,
-     AND = 269,
-     OR = 270,
-     MOD = 271,
-     NUM = 272,
-     ID = 273,
-     PROGRAM = 274,
-     CONST = 275,
-     VAR = 276,
-     PROCEDURE = 277,
-     FUNCTION = 278,
-     BEGIN = 279,
-     END = 280,
-     ARRAY = 281,
-     OF = 282,
-     IF = 283,
-     THEN = 284,
-     ELSE = 285,
-     FOR = 286,
-     TO = 287,
-     DO = 288,
-     INTEGER = 289,
-     BOOLEAN = 290,
-     REAL = 291,
-     CHAR = 292,
-     DOTDOT = 293
+     ASSIGNOP = 264,
+     ADD = 265,
+     SUB = 266,
+     MUL = 267,
+     DIV = 268,
+     IDIV = 269,
+     AND = 270,
+     OR = 271,
+     MOD = 272,
+     NUM = 273,
+     ID = 274,
+     PROGRAM = 275,
+     CONST = 276,
+     VAR = 277,
+     PROCEDURE = 278,
+     FUNCTION = 279,
+     BEGIN = 280,
+     END = 281,
+     ARRAY = 282,
+     OF = 283,
+     IF = 284,
+     THEN = 285,
+     ELSE = 286,
+     FOR = 287,
+     TO = 288,
+     DO = 289,
+     INTEGER = 290,
+     BOOLEAN = 291,
+     REAL = 292,
+     CHAR = 293,
+     DOTDOT = 294,
+     NOT = 295
    };
 #endif
 
@@ -99,7 +101,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 102 "tmp.tab.h"
+#line 104 "tmp.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

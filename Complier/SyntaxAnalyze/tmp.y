@@ -21,17 +21,17 @@
 	SyntaxTreeNodeFinal *c;
 }
 
-//		    =   <>     >      >=      <    <=
-%token <b> EQU NEQU GRETTER EGRETTER LESS ELESS
+//		    =   <>     >      >=      <    <=    :=
+%token <b> EQU NEQU GRETTER EGRETTER LESS ELESS ASSIGNOP
 
 //		    +   -   *    /  div and  or  mod
 %token <b> ADD SUB MUL DIV IDIV AND  OR  MOD
 
 %token <c> NUM ID
 
-%token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR DOTDOT
+%token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR DOTDOT NOT
 
-%type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period
+%type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period subprogram_declarations subprogram subprogram_head formal_parameter parameter_list parameter var_parameter value_parameter subprogram_body compound_statement statement_list statement variable id_varpart procedure_call else_part expression_list expression simple_expression term factor
  
 %%
  
@@ -46,8 +46,8 @@ programstruct : program_head ';' program_body '.'
 program_head : PROGRAM ID 
 	{$$=MakeNode(2,{$2});}
 
-program_body : const_declarations var_declarations /*subprogram_declarations compound_statement*/ 
-	{$$=MakeNode(3,{$1,$2,NULL,NULL}/*,$3,$4}*/);}
+program_body : const_declarations var_declarations subprogram_declarations compound_statement
+	{$$=MakeNode(3,{$1,$2,$3,$4});}
 
 const_declarations : CONST const_declaration ';'
 	{$$=MakeNode(4,{$2});}
@@ -111,52 +111,101 @@ period : period ',' NUM DOTDOT NUM //语义分析做类型检查
 
 period : NUM DOTDOT NUM //语义分析做类型检查
 	{$$=MakeNode(24,{$1,$3});}
-/*
-subprogram_declarations -> subprogram_declarations subprogram ;
-subprogram_declarations -> epsilon
-subprogram -> subprogram_head ; subprogram_body
-subprogram_head -> procedure id formal_parameter
-subprogram_head -> function id formal_parameter : simple_type
-formal_parameter -> ( parameter_list )
-formal_parameter -> epsilon
-parameter_list -> parameter_list ; parameter
-parameter_list -> parameter
-parameter -> var_parameter
-parameter -> value_parameter
-var_parameter -> var value_parameter
-value_parameter -> idlist : simple_type
-subprogram_body -> const_declarations var_declarations compound_statement
-compound_statement -> begin statement_list end
-statement_list -> statement_list ; statement
-statement_list -> statement
-statement -> variable assignop expression
-statement -> procedure_call
-statement -> compound_statement
-statement -> if expression then statement else_part
-statement -> for id assignop expression to expression do statement
-statement -> epsilon
-variable -> id id_varpart
-id_varpart -> [ expression_list ]
-id_varpart -> epsilon
-procedure_call -> id
-procedure_call -> id ( expression_list )
-else_part -> else statement
-else_part -> epsilon
-expression_list -> expression_list , expression
-expression_list -> expression
-expression -> simple_expression relop simple_expression
-expression -> simple_expression
-simple_expression -> simple_expression addop term
-simple_expression -> term
-term -> term mulop factor
-term -> factor
-factor -> num
-factor -> variable
-factor -> id ( expression_list )
-factor -> ( expression )
-factor -> not factor
-factor -> uminus factor
-*/ 
+	
+subprogram_declarations : subprogram_declarations subprogram ';'
+	{$$=MakeNode(25,{$1,$2});}
+subprogram_declarations : 
+	{$$=MakeNode(26,{});}
+subprogram : subprogram_head  ';' subprogram_body
+	{$$=MakeNode(27,{$1,$3});}
+subprogram_head : PROCEDURE ID formal_parameter
+	{$$=MakeNode(28,{$2,$3});}
+subprogram_head : FUNCTION ID formal_parameter ':' simple_type
+	{$$=MakeNode(29,{$2,$3,$5});}
+formal_parameter : '(' parameter_list ')'
+	{$$=MakeNode(30,{$2});}
+formal_parameter :
+	{$$=MakeNode(31,{});}
+parameter_list : parameter_list ';' parameter
+	{$$=MakeNode(32,{$1,$3});}
+parameter_list : parameter
+	{$$=MakeNode(33,{$1});}
+parameter : var_parameter
+	{$$=MakeNode(34,{$1});}
+parameter : value_parameter
+	{$$=MakeNode(35,{$1});}
+var_parameter : VAR value_parameter
+	{$$=MakeNode(36,{$2});}
+value_parameter : idlist ':' simple_type
+	{$$=MakeNode(37,{$1,$3});}
+subprogram_body : const_declarations var_declarations compound_statement
+	{$$=MakeNode(38,{$1,$2,$3});}
+compound_statement : BEGIN statement_list END
+	{$$=MakeNode(39,{$2});}
+statement_list : statement_list ';' statement
+	{$$=MakeNode(40,{$1,$3});}
+statement_list : statement
+	{$$=MakeNode(41,{$1});}
+statement : variable ASSIGNOP expression
+	{$$=MakeNode(42,{$1,$2,$3});}
+statement : procedure_call
+	{$$=MakeNode(43,{$1});}
+statement : compound_statement
+	{$$=MakeNode(44,{$1});}
+statement : IF expression THEN statement else_part
+	{$$=MakeNode(45,{$2,$4,$5});}
+statement : FOR ID ASSIGNOP expression TO expression DO statement
+	{$$=MakeNode(46,{$2,$3,$4,$6,$8});}
+statement : 
+	{$$=MakeNode(47,{});}
+variable : ID id_varpart
+	{$$=MakeNode(48,{$1,$2});}
+id_varpart : '[' expression_list ']'
+	{$$=MakeNode(49,{$2});}
+id_varpart : 
+	{$$=MakeNode(50,{});}
+procedure_call : ID
+	{$$=MakeNode(51,{$1});}
+procedure_call : ID '(' expression_list ')'
+	{$$=MakeNode(52,{$1,$3});}
+else_part : ELSE statement
+	{$$=MakeNode(53,{$2});}
+else_part : 
+	{$$=MakeNode(54,{});}
+expression_list : expression_list ',' expression
+	{$$=MakeNode(55,{$1,$3});}
+expression_list : expression
+	{$$=MakeNode(56,{$1});}
+expression : simple_expression EQU simple_expression 	{$$=MakeNode(57,{$1,$2,$3});} |
+			simple_expression NEQU simple_expression 	{$$=MakeNode(57,{$1,$2,$3});} |
+			simple_expression GRETTER simple_expression	{$$=MakeNode(57,{$1,$2,$3});} |
+			simple_expression EGRETTER simple_expression		{$$=MakeNode(57,{$1,$2,$3});}  |
+			simple_expression LESS simple_expression		{$$=MakeNode(57,{$1,$2,$3});}|
+			simple_expression ELESS simple_expression		{$$=MakeNode(57,{$1,$2,$3});}
+
+expression : simple_expression
+	{$$=MakeNode(58,{$1});}
+simple_expression : simple_expression ADD term {$$=MakeNode(59,{$1,$2,$3});}|
+					simple_expression OR term {$$=MakeNode(59,{$1,$2,$3});}|
+					simple_expression SUB term {$$=MakeNode(59,{$1,$2,$3});}
+
+simple_expression : term
+	{$$=MakeNode(60,{$1});}
+term : term MUL factor {$$=MakeNode(61,{$1,$2,$3});}|
+		term DIV factor {$$=MakeNode(61,{$1,$2,$3});}|
+		term IDIV factor {$$=MakeNode(61,{$1,$2,$3});}|
+		term AND factor {$$=MakeNode(61,{$1,$2,$3});}|
+		term MOD factor {$$=MakeNode(61,{$1,$2,$3});}
+	
+term : factor {$$=MakeNode(62,{$1});}
+factor : NUM {$$=MakeNode(63,{$1});}
+factor : variable {$$=MakeNode(64,{$1});}
+factor : ID '(' expression_list ')' {$$=MakeNode(65,{$1,$3});}
+factor : '(' expression ')' {$$=MakeNode(66,{$2});}
+factor : NOT factor {$$=MakeNode(67,{$2});}
+factor : SUB factor {$$=MakeNode(68,{$2});}
+
+
 %%
  
 /////////////////////////////////////////////////////////////////////////////

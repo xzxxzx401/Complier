@@ -9,7 +9,7 @@ using namespace std;
 
 #define BUF_LEN 256
 #define default_file_name "test.pas"
-#define LEXDEBUG 1
+//#define LEXDEBUG 1
 
 class InputBuffer
 {

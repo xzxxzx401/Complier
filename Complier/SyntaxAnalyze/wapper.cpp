@@ -18,7 +18,10 @@ int yylex(void)
 	if (tmp.value == "")
 		return 0;
 	{
+#ifdef SYNTAXDEBUG
 		cout << tmp.toString() << endl;
+#endif // SYNTAXDEBUG
+
 		yylinenum = tmp.row;
 
 		switch (tmp.attribute)
@@ -180,7 +183,7 @@ int yylex(void)
 				yylval.b = new SyntaxTreeNodeOperator(11, tmp.row);
 				return yytokentype::IDIV;
 			}
-			else if(tmp.value=="mod")
+			else if (tmp.value == "mod")
 			{
 				yylval.b = new SyntaxTreeNodeOperator(12, tmp.row);
 				return yytokentype::MOD;
@@ -189,6 +192,11 @@ int yylex(void)
 			{
 				yylval.b = new SyntaxTreeNodeOperator(13, tmp.row);
 				return yytokentype::AND;
+			}
+			else if (tmp.value == "not")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(15, tmp.row);
+				return yytokentype::NOT;
 			}
 			else
 			{
@@ -226,7 +234,7 @@ int yylex(void)
 		case SymbolType::_assignop:
 		{
 			yylval.b = new SyntaxTreeNodeOperator(14, tmp.row);
-			return yytokentype::EQU;
+			return yytokentype::ASSIGNOP;
 		}
 		case SymbolType::_dotdot:
 		{
