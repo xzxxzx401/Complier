@@ -3,22 +3,14 @@
 #include"SyntaxAnalyze\tmp.tab.h"
 
 using namespace std;
-//int main()
-//{
-//	SyntaxTreeNodeFinal* nd1 = MakeLeaf(std::string("a"),1); //cout << nd1 << endl;
-//	SyntaxTreeNodeFinal* nd2 = MakeLeaf(2,1); //cout << nd2 << endl;
-//	auto k=MakeNode(1, { nd1, nd2 });
-//	trans(k, 0);
-//	system("pause");
-//	return 0;
-//}
+
 string inputFileName;
 SyntaxTreeNode *rt;
 extern int yydebug;
 int main(void)
 {
 	//yydebug = 1;
-	inputFileName = "test.pas";
+	inputFileName = "TestCases\\test2.pas";
 	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
 
 	trans(rt, 0);
