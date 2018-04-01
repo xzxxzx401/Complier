@@ -30,6 +30,7 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+#include"..\SyntaxTree\SyntaxTreeNodeType.h"
 #ifndef YY_YY_TMP_TAB_H_INCLUDED
 # define YY_YY_TMP_TAB_H_INCLUDED
 /* Enabling traces.  */
@@ -46,13 +47,62 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUMBER = 258
+     EQU = 258,
+     NEQU = 259,
+     GRETTER = 260,
+     EGRETTER = 261,
+     LESS = 262,
+     ELESS = 263,
+     ASSIGNOP = 264,
+     ADD = 265,
+     SUB = 266,
+     MUL = 267,
+     DIV = 268,
+     IDIV = 269,
+     AND = 270,
+     OR = 271,
+     MOD = 272,
+     NUM = 273,
+     ID = 274,
+     PROGRAM = 275,
+     CONST = 276,
+     VAR = 277,
+     PROCEDURE = 278,
+     FUNCTION = 279,
+     BEGIN = 280,
+     END = 281,
+     ARRAY = 282,
+     OF = 283,
+     IF = 284,
+     THEN = 285,
+     ELSE = 286,
+     FOR = 287,
+     TO = 288,
+     DO = 289,
+     INTEGER = 290,
+     BOOLEAN = 291,
+     REAL = 292,
+     CHAR = 293,
+     DOTDOT = 294,
+     NOT = 295
    };
 #endif
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+/* Line 2058 of yacc.c  */
+#line 18 "tmp.y"
+
+	SyntaxTreeNode *a;
+	SyntaxTreeNodeOperator *b;
+	SyntaxTreeNodeFinal *c;
+
+
+/* Line 2058 of yacc.c  */
+#line 104 "tmp.tab.h"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
