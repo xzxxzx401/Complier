@@ -58,12 +58,9 @@
 /* Pull parsers.  */
 #define YYPULL 1
 
-
-
-
-/* Copy the first part of user declarations.  */
-/* Line 371 of yacc.c  */
-#line 1 "tmp.y"
+/* "%code top" blocks.  */
+/* Line 349 of yacc.c  */
+#line 4 "tmp.y"
 
 	#include <stdio.h>
 	#include <ctype.h>
@@ -76,8 +73,16 @@
 	extern int yyval;
 	extern SyntaxTreeNode *rt;
 
+
+/* Line 349 of yacc.c  */
+#line 79 "tmp.tab.cpp"
+
+
+
+/* Copy the first part of user declarations.  */
+
 /* Line 371 of yacc.c  */
-#line 81 "tmp.tab.cpp"
+#line 86 "tmp.tab.cpp"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -106,6 +111,15 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+/* Line 387 of yacc.c  */
+#line 1 "tmp.y"
+
+	#include"..\SyntaxTree\SyntaxTreeNodeType.h"
+
+
+/* Line 387 of yacc.c  */
+#line 123 "tmp.tab.cpp"
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -159,7 +173,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 20 "tmp.y"
+#line 23 "tmp.y"
 
 	SyntaxTreeNode *a;
 	SyntaxTreeNodeOperator *b;
@@ -167,7 +181,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 171 "tmp.tab.cpp"
+#line 185 "tmp.tab.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -195,7 +209,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 199 "tmp.tab.cpp"
+#line 213 "tmp.tab.cpp"
 
 #ifdef short
 # undef short
@@ -520,15 +534,15 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    48,    48,    51,    54,    57,    61,    63,    66,    69,
-      72,    75,    78,    82,    84,    87,    90,    93,    96,    99,
-     102,   105,   108,   111,   114,   117,   120,   123,   124,   126,
-     128,   130,   133,   134,   136,   138,   140,   142,   144,   146,
-     148,   150,   152,   154,   156,   158,   160,   162,   165,   166,
-     168,   171,   172,   174,   176,   179,   180,   182,   184,   185,
-     186,   187,   188,   189,   191,   193,   194,   195,   197,   199,
-     200,   201,   202,   203,   205,   206,   207,   208,   209,   210,
-     211
+       0,    51,    51,    54,    57,    60,    64,    66,    69,    72,
+      75,    78,    81,    85,    87,    90,    93,    96,    99,   102,
+     105,   108,   111,   114,   117,   120,   123,   126,   127,   129,
+     131,   133,   136,   137,   139,   141,   143,   145,   147,   149,
+     151,   153,   155,   157,   159,   161,   163,   165,   168,   169,
+     171,   174,   175,   177,   179,   182,   183,   185,   187,   188,
+     189,   190,   191,   192,   194,   196,   197,   198,   200,   202,
+     203,   204,   205,   206,   208,   209,   210,   211,   212,   213,
+     214
 };
 #endif
 
@@ -1534,481 +1548,481 @@ yyreduce:
     {
         case 2:
 /* Line 1792 of yacc.c  */
-#line 49 "tmp.y"
+#line 52 "tmp.y"
     {(yyval.a) = MakeNode(1,{(yyvsp[(1) - (4)].a),(yyvsp[(3) - (4)].a)});rt=(yyval.a);}
     break;
 
   case 3:
 /* Line 1792 of yacc.c  */
-#line 52 "tmp.y"
+#line 55 "tmp.y"
     {(yyval.a)=MakeNode(2,{(yyvsp[(2) - (2)].c)});}
     break;
 
   case 4:
 /* Line 1792 of yacc.c  */
-#line 55 "tmp.y"
+#line 58 "tmp.y"
     {(yyval.a)=MakeNode(3,{(yyvsp[(1) - (4)].a),(yyvsp[(2) - (4)].a),(yyvsp[(3) - (4)].a),(yyvsp[(4) - (4)].a)});}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 58 "tmp.y"
+#line 61 "tmp.y"
     {(yyval.a)=MakeNode(4,{(yyvsp[(2) - (3)].a)});}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 61 "tmp.y"
+#line 64 "tmp.y"
     {(yyval.a)=MakeNode(5,{});}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 64 "tmp.y"
+#line 67 "tmp.y"
     {(yyval.a)=MakeNode(6,	{(yyvsp[(1) - (5)].a),(yyvsp[(3) - (5)].c),(yyvsp[(5) - (5)].a)});}
     break;
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 67 "tmp.y"
+#line 70 "tmp.y"
     {(yyval.a)=MakeNode(7,	{(yyvsp[(1) - (3)].c),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 70 "tmp.y"
+#line 73 "tmp.y"
     {(yyval.a)=MakeNode(8,{(yyvsp[(2) - (2)].c)});}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 73 "tmp.y"
+#line 76 "tmp.y"
     {(yyval.a)=MakeNode(9,{(yyvsp[(2) - (2)].c)});}
     break;
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 76 "tmp.y"
+#line 79 "tmp.y"
     {(yyval.a)=MakeNode(10,{(yyvsp[(1) - (1)].c)});}
     break;
 
   case 12:
 /* Line 1792 of yacc.c  */
-#line 79 "tmp.y"
+#line 82 "tmp.y"
     {(yyval.a)=MakeNode(11,{(yyvsp[(2) - (3)].a)});}
     break;
 
   case 13:
 /* Line 1792 of yacc.c  */
-#line 82 "tmp.y"
+#line 85 "tmp.y"
     {(yyval.a)=MakeNode(12,{});}
     break;
 
   case 14:
 /* Line 1792 of yacc.c  */
-#line 85 "tmp.y"
+#line 88 "tmp.y"
     {(yyval.a)=MakeNode(13,{(yyvsp[(1) - (5)].a),(yyvsp[(3) - (5)].a),(yyvsp[(5) - (5)].a)});}
     break;
 
   case 15:
 /* Line 1792 of yacc.c  */
-#line 88 "tmp.y"
+#line 91 "tmp.y"
     {(yyval.a)=MakeNode(14,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 16:
 /* Line 1792 of yacc.c  */
-#line 91 "tmp.y"
+#line 94 "tmp.y"
     {(yyval.a)=MakeNode(15,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].c)});}
     break;
 
   case 17:
 /* Line 1792 of yacc.c  */
-#line 94 "tmp.y"
+#line 97 "tmp.y"
     {(yyval.a)=MakeNode(16,{(yyvsp[(1) - (1)].c)});}
     break;
 
   case 18:
 /* Line 1792 of yacc.c  */
-#line 97 "tmp.y"
+#line 100 "tmp.y"
     {(yyval.a)=MakeNode(17,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 19:
 /* Line 1792 of yacc.c  */
-#line 100 "tmp.y"
+#line 103 "tmp.y"
     {(yyval.a)=MakeNode(18,{(yyvsp[(3) - (6)].a),(yyvsp[(6) - (6)].a)});}
     break;
 
   case 20:
 /* Line 1792 of yacc.c  */
-#line 103 "tmp.y"
+#line 106 "tmp.y"
     {(yyval.a)=MakeNode(19,{});}
     break;
 
   case 21:
 /* Line 1792 of yacc.c  */
-#line 106 "tmp.y"
+#line 109 "tmp.y"
     {(yyval.a)=MakeNode(20,{});}
     break;
 
   case 22:
 /* Line 1792 of yacc.c  */
-#line 109 "tmp.y"
+#line 112 "tmp.y"
     {(yyval.a)=MakeNode(21,{});}
     break;
 
   case 23:
 /* Line 1792 of yacc.c  */
-#line 112 "tmp.y"
+#line 115 "tmp.y"
     {(yyval.a)=MakeNode(22,{});}
     break;
 
   case 24:
 /* Line 1792 of yacc.c  */
-#line 115 "tmp.y"
+#line 118 "tmp.y"
     {(yyval.a)=MakeNode(23,{(yyvsp[(1) - (5)].a),(yyvsp[(3) - (5)].c),(yyvsp[(5) - (5)].c)});}
     break;
 
   case 25:
 /* Line 1792 of yacc.c  */
-#line 118 "tmp.y"
+#line 121 "tmp.y"
     {(yyval.a)=MakeNode(24,{(yyvsp[(1) - (3)].c),(yyvsp[(3) - (3)].c)});}
     break;
 
   case 26:
 /* Line 1792 of yacc.c  */
-#line 121 "tmp.y"
+#line 124 "tmp.y"
     {(yyval.a)=MakeNode(25,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].a)});}
     break;
 
   case 27:
 /* Line 1792 of yacc.c  */
-#line 123 "tmp.y"
+#line 126 "tmp.y"
     {(yyval.a)=MakeNode(26,{});}
     break;
 
   case 28:
 /* Line 1792 of yacc.c  */
-#line 125 "tmp.y"
+#line 128 "tmp.y"
     {(yyval.a)=MakeNode(27,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 29:
 /* Line 1792 of yacc.c  */
-#line 127 "tmp.y"
+#line 130 "tmp.y"
     {(yyval.a)=MakeNode(28,{(yyvsp[(2) - (3)].c),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 30:
 /* Line 1792 of yacc.c  */
-#line 129 "tmp.y"
+#line 132 "tmp.y"
     {(yyval.a)=MakeNode(29,{(yyvsp[(2) - (5)].c),(yyvsp[(3) - (5)].a),(yyvsp[(5) - (5)].a)});}
     break;
 
   case 31:
 /* Line 1792 of yacc.c  */
-#line 131 "tmp.y"
+#line 134 "tmp.y"
     {(yyval.a)=MakeNode(30,{(yyvsp[(2) - (3)].a)});}
     break;
 
   case 32:
 /* Line 1792 of yacc.c  */
-#line 133 "tmp.y"
+#line 136 "tmp.y"
     {(yyval.a)=MakeNode(31,{});}
     break;
 
   case 33:
 /* Line 1792 of yacc.c  */
-#line 135 "tmp.y"
+#line 138 "tmp.y"
     {(yyval.a)=MakeNode(32,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 34:
 /* Line 1792 of yacc.c  */
-#line 137 "tmp.y"
+#line 140 "tmp.y"
     {(yyval.a)=MakeNode(33,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 35:
 /* Line 1792 of yacc.c  */
-#line 139 "tmp.y"
+#line 142 "tmp.y"
     {(yyval.a)=MakeNode(34,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 36:
 /* Line 1792 of yacc.c  */
-#line 141 "tmp.y"
+#line 144 "tmp.y"
     {(yyval.a)=MakeNode(35,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 37:
 /* Line 1792 of yacc.c  */
-#line 143 "tmp.y"
+#line 146 "tmp.y"
     {(yyval.a)=MakeNode(36,{(yyvsp[(2) - (2)].a)});}
     break;
 
   case 38:
 /* Line 1792 of yacc.c  */
-#line 145 "tmp.y"
+#line 148 "tmp.y"
     {(yyval.a)=MakeNode(37,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 39:
 /* Line 1792 of yacc.c  */
-#line 147 "tmp.y"
+#line 150 "tmp.y"
     {(yyval.a)=MakeNode(38,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 40:
 /* Line 1792 of yacc.c  */
-#line 149 "tmp.y"
+#line 152 "tmp.y"
     {(yyval.a)=MakeNode(39,{(yyvsp[(2) - (3)].a)});}
     break;
 
   case 41:
 /* Line 1792 of yacc.c  */
-#line 151 "tmp.y"
+#line 154 "tmp.y"
     {(yyval.a)=MakeNode(40,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 42:
 /* Line 1792 of yacc.c  */
-#line 153 "tmp.y"
+#line 156 "tmp.y"
     {(yyval.a)=MakeNode(41,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 43:
 /* Line 1792 of yacc.c  */
-#line 155 "tmp.y"
+#line 158 "tmp.y"
     {(yyval.a)=MakeNode(42,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 44:
 /* Line 1792 of yacc.c  */
-#line 157 "tmp.y"
+#line 160 "tmp.y"
     {(yyval.a)=MakeNode(43,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 45:
 /* Line 1792 of yacc.c  */
-#line 159 "tmp.y"
+#line 162 "tmp.y"
     {(yyval.a)=MakeNode(44,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 46:
 /* Line 1792 of yacc.c  */
-#line 161 "tmp.y"
+#line 164 "tmp.y"
     {(yyval.a)=MakeNode(45,{(yyvsp[(2) - (5)].a),(yyvsp[(4) - (5)].a),(yyvsp[(5) - (5)].a)});}
     break;
 
   case 47:
 /* Line 1792 of yacc.c  */
-#line 163 "tmp.y"
+#line 166 "tmp.y"
     {(yyval.a)=MakeNode(46,{(yyvsp[(2) - (8)].c),(yyvsp[(3) - (8)].b),(yyvsp[(4) - (8)].a),(yyvsp[(6) - (8)].a),(yyvsp[(8) - (8)].a)});}
     break;
 
   case 48:
 /* Line 1792 of yacc.c  */
-#line 165 "tmp.y"
+#line 168 "tmp.y"
     {(yyval.a)=MakeNode(47,{});}
     break;
 
   case 49:
 /* Line 1792 of yacc.c  */
-#line 167 "tmp.y"
+#line 170 "tmp.y"
     {(yyval.a)=MakeNode(48,{(yyvsp[(1) - (2)].c),(yyvsp[(2) - (2)].a)});}
     break;
 
   case 50:
 /* Line 1792 of yacc.c  */
-#line 169 "tmp.y"
+#line 172 "tmp.y"
     {(yyval.a)=MakeNode(49,{(yyvsp[(2) - (3)].a)});}
     break;
 
   case 51:
 /* Line 1792 of yacc.c  */
-#line 171 "tmp.y"
+#line 174 "tmp.y"
     {(yyval.a)=MakeNode(50,{});}
     break;
 
   case 52:
 /* Line 1792 of yacc.c  */
-#line 173 "tmp.y"
+#line 176 "tmp.y"
     {(yyval.a)=MakeNode(51,{(yyvsp[(1) - (1)].c)});}
     break;
 
   case 53:
 /* Line 1792 of yacc.c  */
-#line 175 "tmp.y"
+#line 178 "tmp.y"
     {(yyval.a)=MakeNode(52,{(yyvsp[(1) - (4)].c),(yyvsp[(3) - (4)].a)});}
     break;
 
   case 54:
 /* Line 1792 of yacc.c  */
-#line 177 "tmp.y"
+#line 180 "tmp.y"
     {(yyval.a)=MakeNode(53,{(yyvsp[(2) - (2)].a)});}
     break;
 
   case 55:
 /* Line 1792 of yacc.c  */
-#line 179 "tmp.y"
+#line 182 "tmp.y"
     {(yyval.a)=MakeNode(54,{});}
     break;
 
   case 56:
 /* Line 1792 of yacc.c  */
-#line 181 "tmp.y"
+#line 184 "tmp.y"
     {(yyval.a)=MakeNode(55,{(yyvsp[(1) - (3)].a),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 57:
 /* Line 1792 of yacc.c  */
-#line 183 "tmp.y"
+#line 186 "tmp.y"
     {(yyval.a)=MakeNode(56,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 58:
 /* Line 1792 of yacc.c  */
-#line 184 "tmp.y"
+#line 187 "tmp.y"
     {(yyval.a)=MakeNode(57,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 59:
 /* Line 1792 of yacc.c  */
-#line 185 "tmp.y"
+#line 188 "tmp.y"
     {(yyval.a)=MakeNode(57,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 60:
 /* Line 1792 of yacc.c  */
-#line 186 "tmp.y"
+#line 189 "tmp.y"
     {(yyval.a)=MakeNode(57,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 61:
 /* Line 1792 of yacc.c  */
-#line 187 "tmp.y"
+#line 190 "tmp.y"
     {(yyval.a)=MakeNode(57,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 62:
 /* Line 1792 of yacc.c  */
-#line 188 "tmp.y"
+#line 191 "tmp.y"
     {(yyval.a)=MakeNode(57,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 63:
 /* Line 1792 of yacc.c  */
-#line 189 "tmp.y"
+#line 192 "tmp.y"
     {(yyval.a)=MakeNode(57,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 64:
 /* Line 1792 of yacc.c  */
-#line 192 "tmp.y"
+#line 195 "tmp.y"
     {(yyval.a)=MakeNode(58,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 65:
 /* Line 1792 of yacc.c  */
-#line 193 "tmp.y"
+#line 196 "tmp.y"
     {(yyval.a)=MakeNode(59,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 66:
 /* Line 1792 of yacc.c  */
-#line 194 "tmp.y"
+#line 197 "tmp.y"
     {(yyval.a)=MakeNode(59,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 67:
 /* Line 1792 of yacc.c  */
-#line 195 "tmp.y"
+#line 198 "tmp.y"
     {(yyval.a)=MakeNode(59,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 68:
 /* Line 1792 of yacc.c  */
-#line 198 "tmp.y"
+#line 201 "tmp.y"
     {(yyval.a)=MakeNode(60,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 69:
 /* Line 1792 of yacc.c  */
-#line 199 "tmp.y"
+#line 202 "tmp.y"
     {(yyval.a)=MakeNode(61,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 70:
 /* Line 1792 of yacc.c  */
-#line 200 "tmp.y"
+#line 203 "tmp.y"
     {(yyval.a)=MakeNode(61,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 71:
 /* Line 1792 of yacc.c  */
-#line 201 "tmp.y"
+#line 204 "tmp.y"
     {(yyval.a)=MakeNode(61,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 72:
 /* Line 1792 of yacc.c  */
-#line 202 "tmp.y"
+#line 205 "tmp.y"
     {(yyval.a)=MakeNode(61,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 73:
 /* Line 1792 of yacc.c  */
-#line 203 "tmp.y"
+#line 206 "tmp.y"
     {(yyval.a)=MakeNode(61,{(yyvsp[(1) - (3)].a),(yyvsp[(2) - (3)].b),(yyvsp[(3) - (3)].a)});}
     break;
 
   case 74:
 /* Line 1792 of yacc.c  */
-#line 205 "tmp.y"
+#line 208 "tmp.y"
     {(yyval.a)=MakeNode(62,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 75:
 /* Line 1792 of yacc.c  */
-#line 206 "tmp.y"
+#line 209 "tmp.y"
     {(yyval.a)=MakeNode(63,{(yyvsp[(1) - (1)].c)});}
     break;
 
   case 76:
 /* Line 1792 of yacc.c  */
-#line 207 "tmp.y"
+#line 210 "tmp.y"
     {(yyval.a)=MakeNode(64,{(yyvsp[(1) - (1)].a)});}
     break;
 
   case 77:
 /* Line 1792 of yacc.c  */
-#line 208 "tmp.y"
+#line 211 "tmp.y"
     {(yyval.a)=MakeNode(65,{(yyvsp[(1) - (4)].c),(yyvsp[(3) - (4)].a)});}
     break;
 
   case 78:
 /* Line 1792 of yacc.c  */
-#line 209 "tmp.y"
+#line 212 "tmp.y"
     {(yyval.a)=MakeNode(66,{(yyvsp[(2) - (3)].a)});}
     break;
 
   case 79:
 /* Line 1792 of yacc.c  */
-#line 210 "tmp.y"
+#line 213 "tmp.y"
     {(yyval.a)=MakeNode(67,{(yyvsp[(2) - (2)].a)});}
     break;
 
   case 80:
 /* Line 1792 of yacc.c  */
-#line 211 "tmp.y"
+#line 214 "tmp.y"
     {(yyval.a)=MakeNode(68,{(yyvsp[(2) - (2)].a)});}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 2012 "tmp.tab.cpp"
+#line 2026 "tmp.tab.cpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2240,7 +2254,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 214 "tmp.y"
+#line 217 "tmp.y"
 
  
 /////////////////////////////////////////////////////////////////////////////

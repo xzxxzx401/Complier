@@ -1,4 +1,7 @@
-%{
+%code requires{
+	#include"..\SyntaxTree\SyntaxTreeNodeType.h"
+}
+%code top{
 	#include <stdio.h>
 	#include <ctype.h>
 	#include"..\SyntaxTree\SyntaxTreeNodeType.h"
@@ -9,7 +12,7 @@
 	extern int yylinenum;
 	extern int yyval;
 	extern SyntaxTreeNode *rt;
-%}
+}
  
 /////////////////////////////////////////////////////////////////////////////
 // declarations section
