@@ -19,20 +19,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LexAnalyze\InputBuffer.h" />
+    <ClInclude Include="LexAnalyze\LetterTriple.h" />
+    <ClInclude Include="LexAnalyze\Lexer.h" />
+    <ClInclude Include="SyntaxAnalyze\tmp.tab.h" />
     <ClInclude Include="SyntaxTreeNode.h" />
     <ClInclude Include="SyntaxTreeFinalNode.h" />
     <ClInclude Include="SyntaxTreeNodeOperator.h" />
     <ClInclude Include="SyntaxTreeNodeType.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LexAnalyze\InputBuffer.cpp" />
+    <ClCompile Include="LexAnalyze\Lexer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SyntaxTreeNodeType.cpp" />
+    <ClCompile Include="SyntaxAnalyze\tmp.tab.cpp" />
+    <ClCompile Include="SyntaxAnalyze\wapper.cpp" />
+    <ClCompile Include="SyntaxTree\SyntaxTreeNodeType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Tree.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="产生式.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Bison Include="SyntaxAnalyze\tmp.y" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
