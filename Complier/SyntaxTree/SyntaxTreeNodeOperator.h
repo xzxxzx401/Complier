@@ -11,8 +11,8 @@
 ///mulop	* /  div mod and
 ///			14
 ///assignop	:=
-///			15
-///notop	not
+///					15
+///notop(addlop)	not
 
 #include "SyntaxTreeNode.h"
 class SyntaxTreeNodeOperator :

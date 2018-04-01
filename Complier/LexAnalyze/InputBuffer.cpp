@@ -15,7 +15,7 @@ InputBuffer::InputBuffer(const string &str)
 	isFront = false;
 
 	isFileExist = true;
-	
+
 	isBPInFront = true;
 
 	//fill the first half of buffer
@@ -48,12 +48,12 @@ InputBuffer::InputBuffer(void)
 //get a char from buffer
 char InputBuffer::getchar(void)
 {
-	
+
 	if (!isFileExist)//check file exist
 	{
 		return EOF;
 	}
-	else if (backwardPtr == forwardPtr)
+	if (backwardPtr == forwardPtr)
 	{
 		//haven't check the front word yet
 		return 0;
@@ -62,12 +62,6 @@ char InputBuffer::getchar(void)
 	//check EOF
 	if (buffer[backwardPtr] == EOF)
 	{
-		if (curFilePos == -1)
-		{
-			//file end ,return EOF
-			return EOF;
-		}
-
 		//move ptr to another half buffer
 		if (isBPInFront)
 		{
@@ -82,7 +76,13 @@ char InputBuffer::getchar(void)
 			isBPInFront = true;
 		}
 	}
-	
+
+	if (backwardPtr == forwardPtr)
+	{
+		//haven't check the front word yet
+		return 0;
+	}
+
 	//get char and move the pointer
 	char ch = buffer[backwardPtr++];
 
@@ -175,10 +175,10 @@ void InputBuffer::fillBuffer(void)
 		}
 		else
 		{
-			#if LEXDEBUG==2
+#if LEXDEBUG==2
 			cout << "DEBUG in InputBuffer::fillBuffer => num of ch is "
 				<< (int)ch << endl;
-			#endif // _DEBUG_
+#endif // _DEBUG_
 		}
 
 		//put the char into the buffer
@@ -214,12 +214,12 @@ void InputBuffer::fillBuffer(void)
 
 	//change to another half buffer
 	isFront = !isFront;
-	
+
 	inFile.close();
 }
 
-bool InputBuffer::getFileState(void) 
-{ 
+bool InputBuffer::getFileState(void)
+{
 	return isFileExist;
 }
 

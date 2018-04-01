@@ -6,11 +6,16 @@ using namespace std;
 
 string inputFileName;
 SyntaxTreeNode *rt;
+#if YYDEBUG
 extern int yydebug;
+#endif // YYDEBUG
+
 int main(void)
 {
+#if YYDEBUG
 	//yydebug = 1;
-	inputFileName = "TestCases\\test2.pas";
+#endif // YYDEBUG
+	inputFileName = "TestCases\\test_big.pas";
 	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
 
 	trans(rt, 0);

@@ -9,6 +9,7 @@ void __toLower(string &str)
 }
 
 Lexer::Lexer()
+	:inbuf(InputBuffer(default_file_name))
 {
 	curLine = 1;
 	curCol = 1;
@@ -17,8 +18,6 @@ Lexer::Lexer()
 	errorNum = 0;
 
 	curPtrInList = 0;
-
-	inbuf = InputBuffer(default_file_name);
 
 	if (inbuf.getFileState())
 	{
@@ -31,6 +30,7 @@ Lexer::Lexer()
 }
 
 Lexer::Lexer(const string &file)
+	:inbuf(InputBuffer(file))
 {
 	curLine = 1;
 	curCol = 1;
@@ -39,8 +39,6 @@ Lexer::Lexer(const string &file)
 	errorNum = 0;
 
 	curPtrInList = 0;
-
-	inbuf = InputBuffer(file);
 
 	if (inbuf.getFileState())
 	{
@@ -128,7 +126,7 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 				while (0 != inBuf.getchar());
 			}
 		}
-		else if (charType != _ignore)
+		else if (type != _note)
 		{
 			//Output:<type,symbol>
 			string str = "";
@@ -198,13 +196,10 @@ void Lexer::lexicalAnalyse(InputBuffer &inBuf)
 			}
 
 			//add to the list
-			if (type != _note)
-			{
-				letterList.push_back(LetterTriple(str, type, curLine));
-			}
+			letterList.push_back(LetterTriple(str, type, curLine));
 
 		}
-		else//charType is _ignore, moving pointer
+		else if (charType == _ignore)//charType is _ignore, moving pointer
 		{
 			if (ch == '\n')
 			{
@@ -515,6 +510,7 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 			else //ch = other
 			{
 				isPeekable = false;
+				inBuf.moveBackFPtr(1);
 				state = 1;
 			}
 			break;
@@ -524,11 +520,15 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 			state = END_STATE;
 			break;
 
-		case 11:
+		case 11://dealing annotation
+			inbuf.getchar();
 			if (ch == '}')
 			{
 				isPeekable = false;
 				state = 12;
+
+				inbuf.getchar();
+				++curCol;
 			}
 			else if (ch == EOF)
 			{
@@ -538,6 +538,21 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 			else //ch = other
 			{
 				state = 11;
+
+				if (ch == '\n')
+				{
+					++curLine;
+					curCol = 1;
+				}
+				else if (ch == '\t')
+				{
+					curCol += 4;
+				}
+				else
+				{
+					++curCol;
+				}
+
 			}
 			break;
 
@@ -615,7 +630,7 @@ Type Lexer::judgePunc(char ch, InputBuffer &inBuf)
 bool Lexer::isSign(const char &ch)
 {
 	//check the ch that if it's the available sign or not
-	for (int i = 1; i <= NumOfSign; ++i)
+	for (int i = 0; i < NumOfSign; ++i)
 	{
 		if (ch == signArr[i])
 		{

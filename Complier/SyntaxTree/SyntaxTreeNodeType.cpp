@@ -260,8 +260,8 @@ void printTab(int lev)
 {
 	int tlev = lev;
 	while (lev-- > 1)
-		std::cout << "|     ";
-	if (tlev) std::cout << "|-----";
+		std::cout << "|  ";
+	if (tlev) std::cout << "|--";
 }
 void trans(const SyntaxTreeNode* rt, int lev)
 {
@@ -309,7 +309,8 @@ void trans(const SyntaxTreeNode* rt, int lev)
 		case 4:
 		{
 			printTab(lev);
-			std::cout << "[" << tmp->GetLineNum() << "]" << "Char:" << tmp->Value().charValue << std::endl;
+			short cvt = tmp->Value().charValue;
+			std::cout << "[" << tmp->GetLineNum() << "]" << "Char:" << cvt << std::endl;
 			break;
 		}
 		}

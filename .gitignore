@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /Complier/win_bison.exe
+/Complier/TestCases/grammertree.txt

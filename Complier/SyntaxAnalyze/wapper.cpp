@@ -69,7 +69,8 @@ int yylex(void)
 			else
 			{
 #ifdef SYNTAXDEBUG
-				cout << __FILE__ + __LINE__ << "Should not reach here";
+				cout << "Line " << __LINE__ << "of" << __FILE__ << " +" << endl;
+				cout << "Should not reach here" << endl;
 				assert(0);
 #endif // SYNTAXDEBUG
 			}
@@ -97,7 +98,7 @@ int yylex(void)
 		case SymbolType::_char:
 		{
 			SyntaxTreeNodeFinalValue val;
-			val.charValue = tmp.value[0];
+			val.charValue = tmp.value[1];
 			yylval.c = new SyntaxTreeNodeFinal(4, val, yylinenum);
 			return yytokentype::NUM;
 		}
@@ -111,7 +112,8 @@ int yylex(void)
 			else
 			{
 #ifdef SYNTAXDEBUG
-				cout << __FILE__ + __LINE__ << "Should not reach here";
+				cout << "Line " << __LINE__ << "of" << __FILE__ << " +" << endl;
+				cout << "Should not reach here" << endl;
 				assert(0);
 #endif // SYNTAXDEBUG
 			}
@@ -161,7 +163,8 @@ int yylex(void)
 			else
 			{
 #ifdef SYNTAXDEBUG
-				cout << __FILE__ + __LINE__ << "Should not reach here";
+				cout << "Line " << __LINE__ << "of" << __FILE__ << " +" << endl;
+				cout << "Should not reach here" << endl;
 				assert(0);
 #endif // SYNTAXDEBUG
 			}
@@ -193,15 +196,11 @@ int yylex(void)
 				yylval.b = new SyntaxTreeNodeOperator(13, tmp.row);
 				return yytokentype::AND;
 			}
-			else if (tmp.value == "not")
-			{
-				yylval.b = new SyntaxTreeNodeOperator(15, tmp.row);
-				return yytokentype::NOT;
-			}
 			else
 			{
 #ifdef SYNTAXDEBUG
-				cout << __FILE__ + __LINE__ << "Should not reach here";
+				cout << "Line " << __LINE__ << "of" << __FILE__ << " +" << endl;
+				cout << "Should not reach here" << endl;
 				assert(0);
 #endif // SYNTAXDEBUG
 			}
@@ -223,10 +222,16 @@ int yylex(void)
 				yylval.b = new SyntaxTreeNodeOperator(8, tmp.row);
 				return yytokentype::OR;
 			}
+			else if (tmp.value == "not")
+			{
+				yylval.b = new SyntaxTreeNodeOperator(15, tmp.row);
+				return yytokentype::NOT;
+			}
 			else
 			{
 #ifdef SYNTAXDEBUG
-				cout << __FILE__ + __LINE__ << "Should not reach here";
+				cout << "Line " << __LINE__ << "of" << __FILE__ << " +" << endl;
+				cout << "Should not reach here" << endl;
 				assert(0);
 #endif // SYNTAXDEBUG
 			}
@@ -243,7 +248,8 @@ int yylex(void)
 		default:
 		{
 #ifdef SYNTAXDEBUG
-			cout << __FILE__ + __LINE__ << "Should not reach here";
+			cout << "Line " << __LINE__ << "of" << __FILE__ << " +" << endl;
+			cout << "Should not reach here" << endl;
 			assert(0);
 #endif // SYNTAXDEBUG
 			break;
