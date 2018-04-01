@@ -14,6 +14,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // declarations section
  
+%expect 1//only if-then-else conflict and do shift by default
+
 // place any declarations here
 %union{
 	SyntaxTreeNode *a;
@@ -32,6 +34,9 @@
 %token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR DOTDOT NOT
 
 %type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period subprogram_declarations subprogram subprogram_head formal_parameter parameter_list parameter var_parameter value_parameter subprogram_body compound_statement statement_list statement variable id_varpart procedure_call else_part expression_list expression simple_expression term factor
+
+//deal-with-if_then_else
+
  
 %%
  
@@ -168,7 +173,7 @@ procedure_call : ID
 	{$$=MakeNode(51,{$1});}
 procedure_call : ID '(' expression_list ')'
 	{$$=MakeNode(52,{$1,$3});}
-else_part : ELSE statement
+else_part : ELSE statement 
 	{$$=MakeNode(53,{$2});}
 else_part : 
 	{$$=MakeNode(54,{});}
@@ -210,36 +215,7 @@ factor : SUB factor {$$=MakeNode(68,{$2});}
  
 /////////////////////////////////////////////////////////////////////////////
 // programs section
-/*
-int yylex(void)
-{
-   // place your token retrieving code here
-   int c = 0;
-  
-   while( (c = getchar()) == ' ');
-   if( isdigit(c) )
-   {
-       ungetc(c,stdin);
-       scanf_s("%lf",&yylval);
-       return (NUMBER);
-   }
-  
-   if( '\n' == c )
-   {
-       return 0;
-   }
-  
-   return c;
-}*/
-/*
-int main(void)
-{
-  
-   yyparse();
- 
-   system("PAUSE");
-   return 0;
-}*/
+
  
 void yyerror(const char *text)
 {
