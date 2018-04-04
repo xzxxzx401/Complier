@@ -138,7 +138,7 @@ int yylex(void)
 			else if (tmp.value == "<>")
 			{
 				yylval.b = new SyntaxTreeNodeOperator(1, tmp.row);
-				return yytokentype::DIV;
+				return yytokentype::NEQU;
 			}
 			else if (tmp.value == "<")
 			{

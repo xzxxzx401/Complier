@@ -1,9 +1,15 @@
-Program example;
-var x,y:integer;
-{function gcd(a,b:integer):integer;
+program tmp;
+procedure p(a,b:integer;var p,q:boolean);
+	begin
+		for i:= proc(4,5) to proc(5,-,6) do
+			if(i<>5) then
+				i:=0
+			else
+			begin
+				i<>6+6;
+				t:=0;
+			end;
+	end;
 begin
- gcd:=a;
-end;}
-begin
- x=5;
+	x:=6;
 end.
