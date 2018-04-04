@@ -16,7 +16,9 @@
  
 /////////////////////////////////////////////////////////////////////////////
 // declarations section
- 
+
+%error-verbose //Get More Error Message
+
 %expect 1//only if-then-else conflict and do shift by default
 
 // place any declarations here
@@ -38,7 +40,6 @@
 
 %type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period subprogram_declarations subprogram subprogram_head formal_parameter parameter_list parameter var_parameter value_parameter subprogram_body compound_statement statement_list statement variable id_varpart procedure_call else_part expression_list expression simple_expression term factor
 
-//deal-with-if_then_else
 
  
 %%
@@ -166,6 +167,7 @@ statement : FOR ID ASSIGNOP expression TO expression DO statement
 	{$$=MakeNode(46,{$2,$3,$4,$6,$8});}
 statement : 
 	{$$=MakeNode(47,{});}
+	| error {$$=nullptr;}
 variable : ID id_varpart
 	{$$=MakeNode(48,{$1,$2});}
 id_varpart : '[' expression_list ']'
@@ -176,6 +178,7 @@ procedure_call : ID
 	{$$=MakeNode(51,{$1});}
 procedure_call : ID '(' expression_list ')'
 	{$$=MakeNode(52,{$1,$3});}
+	| ID '(' error ')'{$$=nullptr;}
 else_part : ELSE statement 
 	{$$=MakeNode(53,{$2});}
 else_part : 
@@ -209,7 +212,9 @@ term : factor {$$=MakeNode(62,{$1});}
 factor : NUM {$$=MakeNode(63,{$1});}
 factor : variable {$$=MakeNode(64,{$1});}
 factor : ID '(' expression_list ')' {$$=MakeNode(65,{$1,$3});}
+		| ID '(' error ')'{$$=nullptr;}
 factor : '(' expression ')' {$$=MakeNode(66,{$2});}
+		| '(' error ')'{$$=nullptr;}
 factor : NOT factor {$$=MakeNode(67,{$2});}
 factor : SUB factor {$$=MakeNode(68,{$2});}
 
@@ -222,5 +227,5 @@ factor : SUB factor {$$=MakeNode(68,{$2});}
  
 void yyerror(const char *text)
 {
-   fprintf(stderr,"%s\n",text);
+   fprintf(stderr,"%d:%s\n",yylinenum,text);
 }

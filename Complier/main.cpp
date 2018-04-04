@@ -6,6 +6,7 @@ using namespace std;
 
 string inputFileName;
 SyntaxTreeNode *rt;
+extern int yynerrs;
 #if YYDEBUG
 extern int yydebug;
 #endif // YYDEBUG
@@ -13,12 +14,18 @@ extern int yydebug;
 int main(void)
 {
 #if YYDEBUG
-	//yydebug = 1;
+	yydebug = 1;
 #endif // YYDEBUG
-	inputFileName = "TestCases\\test_big.pas";
-	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
-
+	inputFileName = "TestCases\\test3.pas";
+    if (yyparse() == 0 && yynerrs == 0)
+    {
+        cout << "\n!!Success\n" ;
 	trans(rt, 0);
+    }
+    else
+    {
+        cout << "\n!!Fail With " << yynerrs << " Errors!\n";
+    }
 
 	delete rt;
 	system("PAUSE");

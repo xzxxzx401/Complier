@@ -10,11 +10,12 @@ begin
  write(gcd(x,y));
 end.}
 Program example;
+const c1=0.0;
 var x,y:integer;
 function gcd(a,b:integer):integer;
 begin
  if b=0 then gcd:=a
- else gcd:=gcd(b,a mod b);
+ else gcd:=gcd(b,a mod b)
 end;
 begin
  read(x,y);
