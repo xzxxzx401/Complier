@@ -181,14 +181,19 @@ compound_statement : BEGIN statement_list END
 
 statement_list : statement_list ';' statement
 	{$$=MakeNode(40,{$1,$3});}
+
 statement_list : statement
 	{$$=MakeNode(41,{$1});}
+
 statement : variable ASSIGNOP expression
 	{$$=MakeNode(42,{$1,$2,$3});}
+
 statement : procedure_call
 	{$$=MakeNode(43,{$1});}
+
 statement : compound_statement
 	{$$=MakeNode(44,{$1});}
+
 statement : IF expression THEN statement else_part
 	{$$=MakeNode(45,{$2,$4,$5});}
 	| IF error THEN statement else_part{$$=nullptr;}
@@ -198,28 +203,39 @@ statement : FOR ID ASSIGNOP expression TO expression DO statement
 	| FOR ID ASSIGNOP error TO expression DO statement{$$=nullptr;}
 	| FOR ID ASSIGNOP expression TO error DO statement{$$=nullptr;}
 	| FOR ID ASSIGNOP error TO error DO statement{$$=nullptr;}
+
 statement : 
 	{$$=MakeNode(47,{});}
 	| error {$$=nullptr;}
+
 variable : ID id_varpart
 	{$$=MakeNode(48,{$1,$2});}
+
 id_varpart : '[' expression_list ']'
 	{$$=MakeNode(49,{$2});}
+
 id_varpart : 
 	{$$=MakeNode(50,{});}
+
 procedure_call : ID
 	{$$=MakeNode(51,{$1});}
+
 procedure_call : ID '(' expression_list ')'
 	{$$=MakeNode(52,{$1,$3});}
+
 else_part : ELSE statement 
 	{$$=MakeNode(53,{$2});}
+
 else_part : 
 	{$$=MakeNode(54,{});}
+
 expression_list : expression_list ',' expression
 	{$$=MakeNode(55,{$1,$3});}
+
 expression_list : expression
 	{$$=MakeNode(56,{$1});}
 	| error{$$=nullptr;}
+
 expression : simple_expression EQU simple_expression 	{$$=MakeNode(57,{$1,$2,$3});} |
 			simple_expression NEQU simple_expression 	{$$=MakeNode(57,{$1,$2,$3});} |
 			simple_expression GRETTER simple_expression	{$$=MakeNode(57,{$1,$2,$3});} |
@@ -229,12 +245,14 @@ expression : simple_expression EQU simple_expression 	{$$=MakeNode(57,{$1,$2,$3}
 
 expression : simple_expression
 	{$$=MakeNode(58,{$1});}
+
 simple_expression : simple_expression ADD term {$$=MakeNode(59,{$1,$2,$3});}|
 					simple_expression OR term {$$=MakeNode(59,{$1,$2,$3});}|
 					simple_expression SUB term {$$=MakeNode(59,{$1,$2,$3});}
 
 simple_expression : term
 	{$$=MakeNode(60,{$1});}
+
 term : term MUL factor {$$=MakeNode(61,{$1,$2,$3});}|
 		term DIV factor {$$=MakeNode(61,{$1,$2,$3});}|
 		term IDIV factor {$$=MakeNode(61,{$1,$2,$3});}|
@@ -242,11 +260,17 @@ term : term MUL factor {$$=MakeNode(61,{$1,$2,$3});}|
 		term MOD factor {$$=MakeNode(61,{$1,$2,$3});}
 	
 term : factor {$$=MakeNode(62,{$1});}
+
 factor : NUM {$$=MakeNode(63,{$1});}
+
 factor : variable {$$=MakeNode(64,{$1});}
+
 factor : ID '(' expression_list ')' {$$=MakeNode(65,{$1,$3});}
+
 factor : '(' expression ')' {$$=MakeNode(66,{$2});}
+
 factor : NOT factor {$$=MakeNode(67,{$2});}
+
 factor : SUB factor {$$=MakeNode(68,{$2});}
 
 
@@ -258,5 +282,5 @@ factor : SUB factor {$$=MakeNode(68,{$2});}
  
 void yyerror(const char *text)
 {
-   fprintf(stderr,"%d:%s\n",yylinenum,text);
+   fprintf(stderr,"[Line %d]:%s\n",yylinenum,text);
 }

@@ -14,20 +14,20 @@ extern int yydebug;
 int main(void)
 {
 #if YYDEBUG
-	yydebug = 1;
+    yydebug = 1;
 #endif // YYDEBUG
-	inputFileName = "TestCases\\test3.pas";
+    inputFileName = "TestCases\\test3.pas";
     if (yyparse() == 0 && yynerrs == 0)
     {
-        cout << "\n!!Success\n" ;
-	trans(rt, 0);
+        cout << "\n!!Success\n";
+        trans(rt, 0);
     }
     else
     {
         cout << "\n!!Fail With " << yynerrs << " Errors!\n";
     }
 
-	delete rt;
-	system("PAUSE");
-	return 0;
+    delete rt;
+    system("PAUSE");
+    return 0;
 }

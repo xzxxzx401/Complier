@@ -4,67 +4,68 @@
 #include <iostream>
 #include <cassert>
 
-int yylinenum;
-extern YYSTYPE yylval;
-extern string inputFileName;
+int yylinenum;//全局变量，保存行号
+extern YYSTYPE yylval;//yacc中定义，储存指向当前记号的指针
+extern string inputFileName;//main中定义，输入文件
 
-int yylex(void)
+int yylex(void)//模拟词法分析器，将手工词法分析器的输出转成适合yacc的输入
 {
-	static Lexer lexer(inputFileName);
-	//starting analyse
+	static Lexer lexer(inputFileName);//词法分析器接口，静态变量
+	static LetterTriple currentWord("", 0, 0);//当前分析的单词元组
+	currentWord = lexer.getTriple();
 
-	static LetterTriple tmp("", 0, 0);
-	tmp = lexer.getTriple();
-	if (tmp.value == "")
-		return 0;
+	if (currentWord.value == "")
+		return 0;//结束分析
 	{
+
 #ifdef SYNTAXDEBUG
-		cout << tmp.toString() << endl;
+        //输出当前的单词三元组
+		cout << currentWord.toString() << endl;
 #endif // SYNTAXDEBUG
 
-		yylinenum = tmp.row;
+		yylinenum = currentWord.row;
 
-		switch (tmp.attribute)
+		switch (currentWord.attribute)
 		{
-		case SymbolType::_key:
+		case SymbolType::_key://保留字
 		{
-			if (tmp.value == "program")
+			if (currentWord.value == "program")
 				return yytokentype::PROGRAM;
-			else if (tmp.value == "const")
+			else if (currentWord.value == "const")
 				return yytokentype::CONST;
-			else if (tmp.value == "var")
+			else if (currentWord.value == "var")
 				return yytokentype::VAR;
-			else if (tmp.value == "procedure")
+			else if (currentWord.value == "procedure")
 				return yytokentype::PROCEDURE;
-			else if (tmp.value == "function")
+			else if (currentWord.value == "function")
 				return yytokentype::FUNCTION;
-			else if (tmp.value == "begin")
+			else if (currentWord.value == "begin")
 				return yytokentype::BEGIN;
-			else if (tmp.value == "end")
+			else if (currentWord.value == "end")
 				return yytokentype::END;
-			else if (tmp.value == "array")
+			else if (currentWord.value == "array")
 				return yytokentype::ARRAY;
-			else if (tmp.value == "of")
+			else if (currentWord.value == "of")
 				return yytokentype::OF;
-			else if (tmp.value == "if")
+			else if (currentWord.value == "if")
 				return yytokentype::IF;
-			else if (tmp.value == "then")
+			else if (currentWord.value == "then")
 				return yytokentype::THEN;
-			else if (tmp.value == "else")
+			else if (currentWord.value == "else")
 				return yytokentype::ELSE;
-			else if (tmp.value == "for")
+			else if (currentWord.value == "for")
 				return yytokentype::FOR;
-			else if (tmp.value == "to")
+			else if (currentWord.value == "to")
 				return yytokentype::TO;
-			else if (tmp.value == "do")
+			else if (currentWord.value == "do")
 				return yytokentype::DO;
-			else if (tmp.value == "integer")
+			else if (currentWord.value == "integer")
 				return yytokentype::INTEGER;
-			else if (tmp.value == "boolean")
+			else if (currentWord.value == "boolean")
 				return yytokentype::BOOLEAN;
-			else if (tmp.value == "real")
+			else if (currentWord.value == "real")
 				return yytokentype::REAL;
-			else if (tmp.value == "char")
+			else if (currentWord.value == "char")
 				return yytokentype::CHAR;
 			else
 			{
@@ -76,38 +77,38 @@ int yylex(void)
 			}
 			break;
 		}
-		case SymbolType::_id:
+		case SymbolType::_id://标识符
 		{
-			yylval.c = new SyntaxTreeNodeFinal(0, tmp.value, tmp.row);
+			yylval.c = new SyntaxTreeNodeFinal(0, currentWord.value, currentWord.row);
 			return yytokentype::ID;
 		}
-		case SymbolType::_delimiter:
+		case SymbolType::_delimiter://界符
 		{
 #ifdef SYNTAXDEBUG
-			assert(tmp.value.size() == 1);
+			assert(currentWord.value.size() == 1);
 #endif // SYNTAXDEBUG
-			return tmp.value[0];
+			return currentWord.value[0];
 		}
-		case SymbolType::_integer:
+		case SymbolType::_integer://整数
 		{
 			SyntaxTreeNodeFinalValue val;
-			val.intValue = stoi(tmp.value);
+			val.intValue = stoi(currentWord.value);
 			yylval.c = new SyntaxTreeNodeFinal(1, val, yylinenum);
 			return yytokentype::NUM;
 		}
-		case SymbolType::_char:
+		case SymbolType::_char://字符
 		{
 			SyntaxTreeNodeFinalValue val;
-			val.charValue = tmp.value[1];
+			val.charValue = currentWord.value[1];
 			yylval.c = new SyntaxTreeNodeFinal(4, val, yylinenum);
 			return yytokentype::NUM;
 		}
-		case SymbolType::_boolean:
+		case SymbolType::_boolean://布尔常量
 		{
 			SyntaxTreeNodeFinalValue val;
-			if (tmp.value == "true")
+			if (currentWord.value == "true")
 				val.boolValue = 1;
-			else if (tmp.value == "false")
+			else if (currentWord.value == "false")
 				val.boolValue = 0;
 			else
 			{
@@ -121,43 +122,43 @@ int yylex(void)
 			yylval.c = new SyntaxTreeNodeFinal(3, val, yylinenum);
 			return yytokentype::NUM;
 		}
-		case SymbolType::_real:
+		case SymbolType::_real://实数
 		{
 			SyntaxTreeNodeFinalValue val;
-			val.realValue = stod(tmp.value);
+			val.realValue = stod(currentWord.value);
 			yylval.c = new SyntaxTreeNodeFinal(2, val, yylinenum);
 			return yytokentype::NUM;
 		}
-		case SymbolType::_relop:
+		case SymbolType::_relop://比较符号
 		{
-			if (tmp.value == "=")
+			if (currentWord.value == "=")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(0, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(0, currentWord.row);
 				return yytokentype::EQU;
 			}
-			else if (tmp.value == "<>")
+			else if (currentWord.value == "<>")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(1, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(1, currentWord.row);
 				return yytokentype::NEQU;
 			}
-			else if (tmp.value == "<")
+			else if (currentWord.value == "<")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(2, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(2, currentWord.row);
 				return yytokentype::LESS;
 			}
-			else if (tmp.value == "<=")
+			else if (currentWord.value == "<=")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(3, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(3, currentWord.row);
 				return yytokentype::ELESS;
 			}
-			else if (tmp.value == ">")
+			else if (currentWord.value == ">")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(4, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(4, currentWord.row);
 				return yytokentype::GRETTER;
 			}
-			else if (tmp.value == ">=")
+			else if (currentWord.value == ">=")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(5, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(5, currentWord.row);
 				return yytokentype::EGRETTER;
 			}
 			else
@@ -169,31 +170,31 @@ int yylex(void)
 #endif // SYNTAXDEBUG
 			}
 		}
-		case SymbolType::_mulop:
+		case SymbolType::_mulop://乘类符号
 		{
-			if (tmp.value == "*")
+			if (currentWord.value == "*")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(9, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(9, currentWord.row);
 				return yytokentype::MUL;
 			}
-			else if (tmp.value == "/")
+			else if (currentWord.value == "/")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(10, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(10, currentWord.row);
 				return yytokentype::DIV;
 			}
-			else if (tmp.value == "div")
+			else if (currentWord.value == "div")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(11, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(11, currentWord.row);
 				return yytokentype::IDIV;
 			}
-			else if (tmp.value == "mod")
+			else if (currentWord.value == "mod")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(12, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(12, currentWord.row);
 				return yytokentype::MOD;
 			}
-			else if (tmp.value == "and")
+			else if (currentWord.value == "and")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(13, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(13, currentWord.row);
 				return yytokentype::AND;
 			}
 			else
@@ -205,26 +206,26 @@ int yylex(void)
 #endif // SYNTAXDEBUG
 			}
 		}
-		case SymbolType::_addop:
+		case SymbolType::_addop://加类符号
 		{
-			if (tmp.value == "+")
+			if (currentWord.value == "+")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(6, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(6, currentWord.row);
 				return yytokentype::ADD;
 			}
-			else if (tmp.value == "-")
+			else if (currentWord.value == "-")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(7, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(7, currentWord.row);
 				return yytokentype::SUB;
 			}
-			else if (tmp.value == "or")
+			else if (currentWord.value == "or")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(8, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(8, currentWord.row);
 				return yytokentype::OR;
 			}
-			else if (tmp.value == "not")
+			else if (currentWord.value == "not")
 			{
-				yylval.b = new SyntaxTreeNodeOperator(15, tmp.row);
+				yylval.b = new SyntaxTreeNodeOperator(15, currentWord.row);
 				return yytokentype::NOT;
 			}
 			else
@@ -236,12 +237,12 @@ int yylex(void)
 #endif // SYNTAXDEBUG
 			}
 		}
-		case SymbolType::_assignop:
+		case SymbolType::_assignop://赋值号
 		{
-			yylval.b = new SyntaxTreeNodeOperator(14, tmp.row);
+			yylval.b = new SyntaxTreeNodeOperator(14, currentWord.row);
 			return yytokentype::ASSIGNOP;
 		}
-		case SymbolType::_dotdot:
+		case SymbolType::_dotdot://数组中的..
 		{
 			return yytokentype::DOTDOT;
 		}
