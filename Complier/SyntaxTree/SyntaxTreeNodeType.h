@@ -479,7 +479,7 @@ protected:
 };
 
 #include <initializer_list>
-SyntaxTreeNode* MakeNode(int type, std::initializer_list<SyntaxTreeNode*> args);
+SyntaxTreeNode* MakeNode(int productionID, std::initializer_list<SyntaxTreeNode*> args);
 
 //type 0为符号表变量,1为int常量,2为double常量,3为boolean常量,4为char常量
 SyntaxTreeNodeFinal* MakeLeaf(std::string name, int linenum);

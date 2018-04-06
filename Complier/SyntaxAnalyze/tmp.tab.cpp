@@ -67,10 +67,10 @@
 	#include"..\SyntaxTree\SyntaxTreeNodeType.h"
  
  
-	void yyerror(const char *text);
-	extern int yylex(void);
-	extern int yylinenum;
-	extern int yyval;
+	void yyerror(const char *text);//本文件定义，错误处理
+	extern int yylex(void);//模拟词法分析器
+	extern int yylinenum;//warpper中定义，全局变量，行号
+	int yyval;//
 	extern SyntaxTreeNode *rt;
 
 
