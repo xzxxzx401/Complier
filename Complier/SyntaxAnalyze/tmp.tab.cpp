@@ -68,10 +68,10 @@
  
  
 	void yyerror(const char *text);//本文件定义，错误处理
+	int yyval;//本文件定义，指向当前符号的Node指针
 	extern int yylex(void);//模拟词法分析器
 	extern int yylinenum;//warpper中定义，全局变量，行号
-	int yyval;//
-	extern SyntaxTreeNode *rt;
+	extern SyntaxTreeNode *rt;//main中定义，语法树根节点
 
 
 /* Line 349 of yacc.c  */

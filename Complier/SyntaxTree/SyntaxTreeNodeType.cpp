@@ -270,14 +270,11 @@ void printTab(int lev)
     if (tlev) std::cout << "|--";
 }
 
-extern std::set<int> ids;
-
 //遍历语法树
 void trans(const SyntaxTreeNode* rt, int lev)
 {
     if (rt == nullptr) return;
     int productionID = rt->GetType();//产生式序号
-    ids.insert(productionID);
     switch (productionID)
     {
         case 0://0表示叶节点，可能是符号叶节点，可能是常量、标识符叶节点
