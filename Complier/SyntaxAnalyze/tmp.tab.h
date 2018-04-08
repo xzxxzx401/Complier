@@ -30,7 +30,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#include"..\SyntaxTree\SyntaxTreeNodeType.h"
 #ifndef YY_YY_TMP_TAB_H_INCLUDED
 # define YY_YY_TMP_TAB_H_INCLUDED
 /* Enabling traces.  */
@@ -40,6 +39,15 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+/* Line 2058 of yacc.c  */
+#line 1 "tmp.y"
+
+	#include"..\SyntaxTree\SyntaxTreeNodeType.h"
+
+
+/* Line 2058 of yacc.c  */
+#line 51 "tmp.tab.h"
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -93,7 +101,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 18 "tmp.y"
+#line 25 "tmp.y"
 
 	SyntaxTreeNode *a;
 	SyntaxTreeNodeOperator *b;
@@ -101,7 +109,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 104 "tmp.tab.h"
+#line 113 "tmp.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

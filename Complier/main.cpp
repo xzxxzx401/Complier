@@ -1,26 +1,37 @@
 #include"SyntaxTree\SyntaxTreeNodeType.h"
 #include<iostream>
 #include"SyntaxAnalyze\tmp.tab.h"
+#include<set>
 
 using namespace std;
 
 string inputFileName;
 SyntaxTreeNode *rt;
+extern int yynerrs;
 #if YYDEBUG
 extern int yydebug;
 #endif // YYDEBUG
 
+extern int yyparse();
+extern void trans(const SyntaxTreeNode* rt, int lev);
+
 int main(void)
 {
 #if YYDEBUG
-	//yydebug = 1;
+    yydebug = 1;
 #endif // YYDEBUG
-	inputFileName = "TestCases\\test_big.pas";
-	yyparse() == 0 ? cout << "\n!!Success\n" : cout << "\n!!Fail\n";
+    inputFileName = "TestCases\\Right\\test1.pas";
+    if (yyparse() == 0 && yynerrs == 0)
+    {
+        cout << "\n!!Success\n";
+        trans(rt, 0);
+    }
+    else
+    {
+        cout << "\n!!Fail With " << yynerrs << " Errors!\n";
+    }
 
-	trans(rt, 0);
-
-	delete rt;
-	system("PAUSE");
-	return 0;
+    delete rt;
+    system("PAUSE");
+    return 0;
 }

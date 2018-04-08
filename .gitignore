@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /Complier/win_bison.exe
 /Complier/TestCases/grammertree.txt
+/CodeGraphData
+/Complier/NDEBUG
+/NDEBUG
