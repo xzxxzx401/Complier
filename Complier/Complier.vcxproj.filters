@@ -15,18 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SyntaxTreeFinalNode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SyntaxTreeNode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SyntaxTreeNodeType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SyntaxTreeNodeOperator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="LexAnalyze\InputBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -37,6 +25,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SyntaxAnalyze\tmp.tab.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxTree\SyntaxTreeNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxTree\SyntaxTreeNodeFinal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxTree\SyntaxTreeNodeOperator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SyntaxTree\SyntaxTreeNodeType.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
