@@ -80,6 +80,10 @@ int yylex(void)//模拟词法分析器，将手工词法分析器的输出转成适合yacc的输入
 		case SymbolType::_id://标识符
 		{
 			yylval.c = new SyntaxTreeNodeFinal(0, currentWord.value, currentWord.row);
+			if (currentWord.value == "write")
+				return yytokentype::WRITE;
+			else if (currentWord.value == "read")
+				return yytokentype::READ;
 			return yytokentype::ID;
 		}
 		case SymbolType::_delimiter://界符

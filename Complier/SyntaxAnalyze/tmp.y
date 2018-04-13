@@ -34,11 +34,11 @@
 //		    +   -   *    /  div and  or  mod
 %token <b> ADD SUB MUL DIV IDIV AND  OR  MOD
 
-%token <c> NUM ID
+%token <c> NUM ID READ WRITE
 
 %token PROGRAM CONST VAR PROCEDURE FUNCTION BEGIN END ARRAY OF IF THEN ELSE FOR TO DO INTEGER BOOLEAN REAL CHAR DOTDOT NOT
 
-%type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period subprogram_declarations subprogram subprogram_head formal_parameter parameter_list parameter var_parameter value_parameter subprogram_body compound_statement statement_list statement variable id_varpart procedure_call else_part expression_list expression simple_expression term factor
+%type <a> programstruct program_head program_body const_declarations const_declaration const_value var_declarations var_declaration idlist type simple_type period subprogram_declarations subprogram subprogram_head formal_parameter parameter_list parameter var_parameter value_parameter subprogram_body compound_statement statement_list statement variable id_varpart procedure_call else_part expression_list expression simple_expression term factor special_list
 
 
  
@@ -223,6 +223,11 @@ procedure_call : ID
 procedure_call : ID '(' expression_list ')'
 	{$$=MakeNode(52,{$1,$3});}
 
+	|
+
+	READ '(' special_list ')'{$$=MakeNode(52,{$1,$3});}
+	|WRITE '(' special_list ')'{$$=MakeNode(52,{$1,$3});}
+
 else_part : ELSE statement 
 	{$$=MakeNode(53,{$2});}
 
@@ -231,6 +236,14 @@ else_part :
 
 expression_list : expression_list ',' expression
 	{$$=MakeNode(55,{$1,$3});}
+
+special_list : special_list ',' ID {$$=MakeNode(55,{$1,$3});}
+	|special_list ',' NUM {$$=MakeNode(55,{$1,$3});}
+	//|special_list error{$$=nullptr;}
+
+special_list : ID {$$=MakeNode(56,{$1});}
+	|NUM {$$=MakeNode(56,{$1});}
+	|error{$$=nullptr;}
 
 expression_list : expression
 	{$$=MakeNode(56,{$1});}

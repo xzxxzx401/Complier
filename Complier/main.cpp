@@ -20,7 +20,7 @@ int main(void)
 #if YYDEBUG
     yydebug = 1;
 #endif // YYDEBUG
-    inputFileName = "TestCases\\Right\\test1.pas";
+    inputFileName = "TestCases\\Wrong\\test3.pas";
     if (yyparse() == 0 && yynerrs == 0)
     {
         cout << "\n!!Success\n";

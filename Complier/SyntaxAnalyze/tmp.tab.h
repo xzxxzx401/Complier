@@ -72,27 +72,29 @@ extern int yydebug;
      MOD = 272,
      NUM = 273,
      ID = 274,
-     PROGRAM = 275,
-     CONST = 276,
-     VAR = 277,
-     PROCEDURE = 278,
-     FUNCTION = 279,
-     BEGIN = 280,
-     END = 281,
-     ARRAY = 282,
-     OF = 283,
-     IF = 284,
-     THEN = 285,
-     ELSE = 286,
-     FOR = 287,
-     TO = 288,
-     DO = 289,
-     INTEGER = 290,
-     BOOLEAN = 291,
-     REAL = 292,
-     CHAR = 293,
-     DOTDOT = 294,
-     NOT = 295
+     READ = 275,
+     WRITE = 276,
+     PROGRAM = 277,
+     CONST = 278,
+     VAR = 279,
+     PROCEDURE = 280,
+     FUNCTION = 281,
+     BEGIN = 282,
+     END = 283,
+     ARRAY = 284,
+     OF = 285,
+     IF = 286,
+     THEN = 287,
+     ELSE = 288,
+     FOR = 289,
+     TO = 290,
+     DO = 291,
+     INTEGER = 292,
+     BOOLEAN = 293,
+     REAL = 294,
+     CHAR = 295,
+     DOTDOT = 296,
+     NOT = 297
    };
 #endif
 
@@ -109,7 +111,7 @@ typedef union YYSTYPE
 
 
 /* Line 2058 of yacc.c  */
-#line 113 "tmp.tab.h"
+#line 115 "tmp.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

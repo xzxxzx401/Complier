@@ -1,16 +1,7 @@
 program tmp;
-procedure p(a,b:integer;var p,q:boolean);
+var x+y,k,k,k,h,f,i+o:integer;
 begin
-	for i:= proc(4,5) to proc(5,-,6) do
-		if(i<>5) then
-			i:=0
-		else
-		begin
-			i<>6+6;
-			t:=0;
-		end;
-end;
-
-begin
+	read(x+u,x,x,x,x+y);
 	x:=6;
+	write(x+y);
 end.
